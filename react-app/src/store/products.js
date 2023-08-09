@@ -12,6 +12,8 @@ export const getAllProductsThunk = () => async (dispatch) => {
   const res = await fetch("/api/products");
   if (res.ok) {
     const products = await res.json();
+    console.log("products type:", products);
+    dispatch(loadAllProducts(products));
     dispatch(loadAllProducts(products));
   } else {
     const errors = await res.json();

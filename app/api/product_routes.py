@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request, redirect, url_for
 from flask_login import login_required, current_user
 from app.models import Product, User, db
+from app.forms import ProductForm
 from .auth_routes import validation_errors_to_error_messages
 
 product_routes = Blueprint('products', __name__)
@@ -11,6 +12,29 @@ product_routes = Blueprint('products', __name__)
 def get_all_products():
     products = Product.query.order_by(Product.updated_at.desc()).all()
     return {"products": [product.to_dict() for product in products]}
+
+
+#create a product route
+@product_routes.route('', methods=["POST"])
+@login_required
+def create_product():
+    form = ProductForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        new_product = Product(
+            user_id=current_user.to_dict()['id'],
+            title=form.data['title'],
+            description=form.data['description'],
+            image=form.data['image'],
+            price=form.data['price']
+        )
+        db.session.add(new_product)
+        db.session.commit()
+        return {'New Product': new_product.to_dict()}
+
+    print(form.errors)
+    return {"errors": validation_errors_to_error_messages(form.errors)}
 
 
 #get all of the logged in user's products

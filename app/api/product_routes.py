@@ -42,7 +42,9 @@ def create_product():
 @login_required
 def get_user_products():
     products = Product.query.filter_by(user_id = current_user.id )
-    return {"products": [product.to_dict() for product in products]}
+    if not products:
+        return jsonify({"erorr": "Product not found"}), 404
+    return [product.to_dict() for product in products]
 
 
 #get one product's details

@@ -55,6 +55,28 @@ def get_one_product(productId):
     return response
 
 
+#get one product's details
+@product_routes.route('/<int:productId>', methods=["PUT"])
+@login_required
+def update_product(productId):
+    form = ProductForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    product = Product.query.get(productId)
+    if form.validate_on_submit():
+        print('no validation errors for update product')
+        product.title = form.data['title']
+        product.description=form.data['description']
+        product.image=form.data['image']
+        product.price=form.data['price']
+
+        db.session.commit()
+        res = product.to_dict()
+        return res
+    else:
+        print('FORM ERRORS HERE', form.errors)
+        return form.errors
+
+
 #delete a product
 @product_routes.route('/<int:productId>', methods=["DELETE"])
 @login_required

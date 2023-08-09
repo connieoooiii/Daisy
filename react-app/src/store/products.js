@@ -93,7 +93,6 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         allProducts: newState,
-        singleProduct: {},
       };
     }
     default:

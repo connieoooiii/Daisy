@@ -2,12 +2,14 @@
   width: 100%;
   height: 18rem;
   object-fit: cover;
-  border-radius: 10%;
+  border-radius: 25px;
 }
 
 .sell-img {
-  width: 2rem;
-  border-radius: 50px;
+  /* width: 2rem; */
+  height: 1.3rem;
+  border-radius: 50% !important;
+  /* border: 1px solid red; */
 }
 
 .card-info {
@@ -23,9 +25,14 @@
 .card-wrap {
   margin: 1rem;
   object-fit: cover;
+  /* border: 1px solid red; */
 }
 
 .card-wrap > a {
   text-decoration: none;
   color: black;
+}
+
+.product-title {
+  margin: 4px 0px;
 }

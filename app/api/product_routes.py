@@ -11,7 +11,7 @@ product_routes = Blueprint('products', __name__)
 @product_routes.route('')
 def get_all_products():
     products = Product.query.order_by(Product.updated_at.desc()).all()
-    return {"products": [product.to_dict() for product in products]}
+    return  [product.to_dict() for product in products]
 
 
 #create a product route
@@ -55,7 +55,7 @@ def get_one_product(productId):
     return response
 
 
-#get one product's details
+#update one product's details
 @product_routes.route('/<int:productId>', methods=["PUT"])
 @login_required
 def update_product(productId):

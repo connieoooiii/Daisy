@@ -55,7 +55,7 @@ def get_one_product(productId):
     return response
 
 
-#get one product's details
+#update one product's details
 @product_routes.route('/<int:productId>', methods=["PUT"])
 @login_required
 def update_product(productId):

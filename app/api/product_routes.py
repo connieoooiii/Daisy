@@ -31,7 +31,7 @@ def create_product():
         )
         db.session.add(new_product)
         db.session.commit()
-        return {'New Product': new_product.to_dict()}
+        return  new_product.to_dict()
 
     print(form.errors)
     return {"errors": validation_errors_to_error_messages(form.errors)}

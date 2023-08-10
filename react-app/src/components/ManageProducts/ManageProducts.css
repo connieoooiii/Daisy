@@ -1,0 +1,10 @@
+.delpro-wrap > button {
+  border-radius: 24px;
+  background-color: rgb(156, 175, 136);
+  color: white;
+  border: none;
+  width: 5rem;
+  padding: 0.4rem;
+  cursor: pointer;
+  font-weight: bold;
+}

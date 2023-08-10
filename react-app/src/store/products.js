@@ -3,6 +3,8 @@ export const LOAD_ALL_PRODUCTS = "products/LOAD_ALL_PRODUCTS";
 
 export const LOAD_ONE_PRODUCT = "products/LOAD_ONE_PRODUCT";
 
+export const LOAD_USER_PRODUCTS = "products/LOAD_USER_PRODUCTS";
+
 /**  Action Creators: */
 export const loadAllProducts = (products) => ({
   type: LOAD_ALL_PRODUCTS,
@@ -12,6 +14,11 @@ export const loadAllProducts = (products) => ({
 export const loadOneProduct = (product) => ({
   type: LOAD_ONE_PRODUCT,
   product,
+});
+
+export const loadUserProducts = (products) => ({
+  type: LOAD_USER_PRODUCTS,
+  products,
 });
 
 /** Thunk Action Creators: */
@@ -43,6 +50,20 @@ export const getOneProductThunk = (productId) => async (dispatch) => {
   }
 };
 
+export const getUserProductsThunk = () => async (dispatch) => {
+  const res = await fetch("/api/products/user");
+
+  if (res.ok) {
+    const products = await res.json();
+    dispatch(loadUserProducts(products));
+    return products;
+  } else {
+    const errors = await res.json();
+    console.log(errors);
+    return errors;
+  }
+};
+
 /** Products Reducer: */
 const initialState = {allProducts: {}, singleProduct: {}};
 
@@ -63,6 +84,16 @@ const productReducer = (state = initialState, action) => {
       const newState = {...state};
       newState.singleProduct = action.product;
       return newState;
+    }
+    case LOAD_USER_PRODUCTS: {
+      const newState = {};
+      action.products.forEach((product) => {
+        newState[product.id] = product;
+      });
+      return {
+        ...state,
+        allProducts: newState,
+      };
     }
     default:
       return state;

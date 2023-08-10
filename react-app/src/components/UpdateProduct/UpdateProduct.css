@@ -1,0 +1,19 @@
+.updatepro-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 15rem;
+  padding: 1rem;
+}
+
+.updatepro-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.money {
+  display: flex;
+  flex-direction: row;
+}

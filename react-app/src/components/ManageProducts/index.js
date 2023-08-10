@@ -7,6 +7,7 @@ import ProductCard from "../ProductCard";
 import OpenModalButton from "../OpenModalButton";
 import DeleteProduct from "../DeleteProduct";
 import "./ManageProducts.css";
+import UpdateProduct from "../UpdateProduct";
 
 export default function ManageProducts() {
   const dispatch = useDispatch();
@@ -30,11 +31,19 @@ export default function ManageProducts() {
         {products.map((product) => (
           <div key={product.id}>
             <ProductCard product={product} />
-            <div className="delpro-wrap">
-              <OpenModalButton
-                modalComponent={<DeleteProduct productId={product.id} />}
-                buttonText="Delete"
-              />
+            <div className="the-buttons">
+              <div className="editpro-wrap">
+                <OpenModalButton
+                  modalComponent={<UpdateProduct productId={product.id} />}
+                  buttonText="Update"
+                />
+              </div>
+              <div className="delpro-wrap">
+                <OpenModalButton
+                  modalComponent={<DeleteProduct productId={product.id} />}
+                  buttonText="Delete"
+                />
+              </div>
             </div>
           </div>
         ))}

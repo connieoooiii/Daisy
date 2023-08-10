@@ -130,10 +130,10 @@ export const updateProductThunk = (product) => async (dispatch) => {
     body: JSON.stringify(product),
   });
   if (res.ok) {
-    const product = await res.json();
-    console.log("INISDE UPDATE THUNK", product);
-    dispatch(updateProduct(product));
-    return product;
+    const editProduct = await res.json();
+    console.log("INISDE UPDATE THUNK", editProduct);
+    dispatch(updateProduct(editProduct));
+    return editProduct;
   } else {
     const errors = await res.json();
     console.log(errors);

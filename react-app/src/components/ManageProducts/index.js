@@ -4,6 +4,9 @@ import {useHistory} from "react-router-dom";
 import {getUserProductsThunk} from "../../store/products";
 
 import ProductCard from "../ProductCard";
+import OpenModalButton from "../OpenModalButton";
+import DeleteProduct from "../DeleteProduct";
+import "./ManageProducts.css";
 
 export default function ManageProducts() {
   const dispatch = useDispatch();
@@ -25,7 +28,15 @@ export default function ManageProducts() {
     <div>
       <div className="product-card-wrap">
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <div key={product.id}>
+            <ProductCard product={product} />
+            <div className="delpro-wrap">
+              <OpenModalButton
+                modalComponent={<DeleteProduct productId={product.id} />}
+                buttonText="Delete"
+              />
+            </div>
+          </div>
         ))}
       </div>
     </div>

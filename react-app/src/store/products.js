@@ -5,6 +5,8 @@ export const LOAD_ONE_PRODUCT = "products/LOAD_ONE_PRODUCT";
 
 export const LOAD_USER_PRODUCTS = "products/LOAD_USER_PRODUCTS";
 
+export const DELETE_PRODUCT = "products/DELETE_PRODUCT";
+
 /**  Action Creators: */
 export const loadAllProducts = (products) => ({
   type: LOAD_ALL_PRODUCTS,
@@ -19,6 +21,11 @@ export const loadOneProduct = (product) => ({
 export const loadUserProducts = (products) => ({
   type: LOAD_USER_PRODUCTS,
   products,
+});
+
+export const deleteProduct = (productId) => ({
+  type: DELETE_PRODUCT,
+  productId,
 });
 
 /** Thunk Action Creators: */
@@ -64,6 +71,23 @@ export const getUserProductsThunk = () => async (dispatch) => {
   }
 };
 
+export const deleteProductThunk = (productId) => async (dispatch) => {
+  const res = await fetch(`/api/products/${productId}`, {
+    method: "DELETE",
+  });
+
+  if (res.ok) {
+    const product = await res.json();
+    console.log("INSIDE RES OK DELETE THUNK");
+    dispatch(deleteProduct(productId));
+    return product;
+  } else {
+    const errors = await res.json();
+    console.log(errors);
+    return errors;
+  }
+};
+
 /** Products Reducer: */
 const initialState = {allProducts: {}, singleProduct: {}};
 
@@ -94,6 +118,16 @@ const productReducer = (state = initialState, action) => {
         ...state,
         allProducts: newState,
       };
+    }
+    case DELETE_PRODUCT: {
+      const newState = {
+        ...state,
+        allProducts: {...state.allProducts},
+        singleProduct: {...state.singleProduct},
+      };
+      delete newState.allProducts[action.productId];
+      delete newState.singleProduct[action.productId];
+      return newState;
     }
     default:
       return state;

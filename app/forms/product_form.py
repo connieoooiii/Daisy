@@ -6,5 +6,5 @@ from app.models import Product
 class ProductForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(),Length(min=4, max=150) ])
     description = StringField('Description', validators =[Length(max=1000)])
-    image = StringField('Image', validators=[DataRequired(), URL()])
+    image = StringField('Image', validators=[DataRequired()])
     price = FloatField('Price', validators=[DataRequired()])

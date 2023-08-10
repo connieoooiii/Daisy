@@ -7,6 +7,10 @@ export const LOAD_USER_PRODUCTS = "products/LOAD_USER_PRODUCTS";
 
 export const DELETE_PRODUCT = "products/DELETE_PRODUCT";
 
+export const ADD_PRODUCT = "products/ADD_PRODUCT";
+
+export const UPDATE_PRODUCT = "products/UPDATE_PRODUCT";
+
 /**  Action Creators: */
 export const loadAllProducts = (products) => ({
   type: LOAD_ALL_PRODUCTS,
@@ -26,6 +30,16 @@ export const loadUserProducts = (products) => ({
 export const deleteProduct = (productId) => ({
   type: DELETE_PRODUCT,
   productId,
+});
+
+export const addProduct = (product) => ({
+  type: ADD_PRODUCT,
+  product,
+});
+
+export const updateProduct = (product) => ({
+  type: UPDATE_PRODUCT,
+  product,
 });
 
 /** Thunk Action Creators: */
@@ -88,6 +102,45 @@ export const deleteProductThunk = (productId) => async (dispatch) => {
   }
 };
 
+export const addProductThunk = (product) => async (dispatch) => {
+  console.log("I AM INSIDE THUNK, before res ");
+  const res = await fetch("/api/products", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(product),
+  });
+  if (res.ok) {
+    const newProduct = await res.json();
+    console.log("INSIDE ADD PRO THUNK AFTER RES OK");
+    dispatch(addProduct(newProduct));
+    return newProduct;
+  } else {
+    const errors = await res.json();
+    console.log(errors);
+    return errors;
+  }
+};
+
+export const updateProductThunk = (product) => async (dispatch) => {
+  const res = await fetch(`api/products/${product.id}`, {
+    method: "PUT",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(product),
+  });
+  if (res.ok) {
+    const product = await res.json();
+    console.log("INISDE UPDATE THUNK", product);
+    dispatch(updateProduct(product));
+    return product;
+  } else {
+    const errors = await res.json();
+    console.log(errors);
+    return errors;
+  }
+};
+
 /** Products Reducer: */
 const initialState = {allProducts: {}, singleProduct: {}};
 
@@ -128,6 +181,24 @@ const productReducer = (state = initialState, action) => {
       delete newState.allProducts[action.productId];
       delete newState.singleProduct[action.productId];
       return newState;
+    }
+    case ADD_PRODUCT: {
+      return {
+        ...state,
+        allProducts: {
+          ...state.allProducts,
+          [action.product.id]: action.product,
+        },
+      };
+    }
+    case UPDATE_PRODUCT: {
+      return {
+        ...state,
+        allProducts: {
+          ...state.allProducts,
+          [action.product.id]: action.product,
+        },
+      };
     }
     default:
       return state;

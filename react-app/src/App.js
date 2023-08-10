@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import ProductsIndex from "./components/ProductsIndex";
 import ProductDetails from "./components/ProductDetails";
 import ManageProducts from "./components/ManageProducts";
+import CreateProduct from "./components/CreateProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route exact path="/products/manage">
             <ManageProducts />
+          </Route>
+          <Route exact path="/products/new">
+            <CreateProduct />
           </Route>
           <Route exact path="/products/:productId">
             <ProductDetails />

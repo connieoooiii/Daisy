@@ -23,6 +23,10 @@ class Product(db.Model):
     # one-to-many
     user = db.relationship("User", back_populates="products")
 
+    shopping_carts = db.relationship("ShoppingCart", back_populates="products", cascade="all, delete-orphan")
+
+    products = db.relationship("Review", back_populates='products', cascade="all, delete-orphan")
+
 
     def to_dict(self):
         product_dict = {

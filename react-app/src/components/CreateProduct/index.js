@@ -3,6 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {addProductThunk} from "../../store/products";
 
+const fixedPrice = (price) => (+price).toFixed(2);
+
 export default function CreateProduct() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -43,13 +45,14 @@ export default function CreateProduct() {
       return alert("Please enter valid information to create your product");
     }
 
+    const newPrice = fixedPrice(price);
+
     console.log("I am in handle submit there are no errors");
     const newProduct = {
-      //   user_id: userId,
       title,
       description,
       image,
-      price,
+      price: newPrice,
     };
 
     const dispatchedProduct = await dispatch(addProductThunk(newProduct));

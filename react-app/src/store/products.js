@@ -124,7 +124,8 @@ export const addProductThunk = (product) => async (dispatch) => {
 };
 
 export const updateProductThunk = (product) => async (dispatch) => {
-  const res = await fetch(`api/products/${product.id}`, {
+  console.log("inside update product thunk");
+  const res = await fetch(`/api/products/${product.id}`, {
     method: "PUT",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(product),

@@ -4,12 +4,16 @@ import {useHistory} from "react-router-dom";
 import {useModal} from "../../context/Modal";
 
 import "./UpdateProduct.css";
-import {getOneProductThunk} from "../../store/products";
+import {getOneProductThunk, updateProductThunk} from "../../store/products";
+
+const fixedPrice = (price) => (+price).toFixed(2);
 
 export default function UpdateProduct({productId}) {
   const dispatch = useDispatch();
   const history = useHistory();
   const {closeModal} = useModal();
+
+  const user_id = useSelector((state) => state.session.user.id);
 
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
@@ -46,9 +50,44 @@ export default function UpdateProduct({productId}) {
     setErrors(errorsObj);
   }, [image, price, title, description]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setDidSubmit(true);
+    if (Object.keys(errors).length > 0) {
+      return alert("Please enter valid information to update your product");
+    }
+
+    setErrors({});
+
+    const newPrice = fixedPrice(price);
+
+    const updatedProduct = {
+      id: productId,
+      user_id,
+      title,
+      description,
+      image,
+      price: newPrice,
+    };
+
+    console.log("INSIDE handle submit update product");
+    console.log("updated product", updatedProduct);
+    const dispatchedProduct = await dispatch(
+      updateProductThunk(updatedProduct)
+    );
+
+    setImage("");
+    setDescription("");
+    setTitle("");
+    setPrice("");
+
+    if (dispatchedProduct) closeModal();
+  };
+
   return (
     <div className="updatepro-wrap">
-      <form className="updatepro-form">
+      <form className="updatepro-form" onSubmit={handleSubmit}>
         <div>Update Your Product</div>
 
         <div>
@@ -101,7 +140,7 @@ export default function UpdateProduct({productId}) {
         {didSubmit && errors.price && (
           <p className="sign-err">{errors.price}</p>
         )}
-        <button type="submit">Create</button>
+        <button type="submit">Save</button>
       </form>
     </div>
   );

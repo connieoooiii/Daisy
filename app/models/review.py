@@ -15,6 +15,10 @@ class Review(db.Model):
         add_prefix_for_prod("products.id")), nullable=False)
     stars = db.Column(db.Integer, nullable= False)
     review = db.Column(db.String, nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True),
+                           server_default=func.now())
+    updated_at = db.Column(db.DateTime(timezone=True),
+                           server_default=func.now(), onupdate=func.now())
 
     user = db.relationship("User", back_populates="reviews")
 
@@ -22,10 +26,14 @@ class Review(db.Model):
 
 
     def to_dict(self):
-        return {
+        review_dict = {
             'id': self.id,
             'user_id': self.user_id,
             'product_id': self.product_id,
             'stars': self.stars,
-            'review': self.review
+            'review': self.review,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
         }
+        review_dict["creator"] = self.user.to_dict()
+        return review_dict

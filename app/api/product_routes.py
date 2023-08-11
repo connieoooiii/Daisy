@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request, redirect, url_for
 from flask_login import login_required, current_user
-from app.models import Product, User, db
+from app.models import Product, User, db, Review
 from app.forms import ProductForm
 from .auth_routes import validation_errors_to_error_messages
 
@@ -41,8 +41,25 @@ def create_product():
 @product_routes.route('/user')
 @login_required
 def get_user_products():
-    products = Product.query.filter_by(user_id = current_user.id )
+    products = Product.query.filter_by(user_id = current_user.id ).all()
     return [product.to_dict() for product in products]
+
+
+#get all reviews of a product
+@product_routes.route('/<int:productId>/reviews')
+def get_product_reviews(productId):
+    product = Product.query.get(productId)
+    if not product:
+        return jsonify({"erorr": "Product not found"}), 404
+
+    reviews = Review.query.filter_by(product_id = productId).order_by(Review.created_at.desc()).all()
+
+    if not reviews:
+        return jsonify({"erorr": "No reviews found"}), 404
+    else:
+        return [review.to_dict() for review in reviews]
+
+
 
 
 #get one product's details

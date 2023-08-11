@@ -16,15 +16,12 @@ def get_cart():
     if products:
         product_dict = [product.to_dict() for product in products]
         result = []
-        total = 0
         for product in product_dict:
             item = Product.query.get(product['product_id'])
             return_item = item.to_cart_dict()
             return_item['quantity'] = product['quantity']
             result.append(return_item)
-            # total += return_item['price']
-        # result.append({'total_price': total})
-        # return product_dict
+
         return result
     else:
         return jsonify({"message": "You have no products in your cart"}), 404

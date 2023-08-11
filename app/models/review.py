@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy.sql import func
 
 class Review(db.Model):
-    __tablename__: "reviews"
+    __tablename__ = "reviews"
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}

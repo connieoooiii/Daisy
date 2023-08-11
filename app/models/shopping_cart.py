@@ -13,7 +13,7 @@ class ShoppingCart(db.Model):
         add_prefix_for_prod("users.id")), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod("products.id")), nullable=False)
-    # quantity = db.Column(db.Integer, nullable= False)
+    quantity = db.Column(db.Integer, default=1)
     created_at = db.Column(db.DateTime(timezone=True),
                            server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True),
@@ -30,5 +30,5 @@ class ShoppingCart(db.Model):
             'id': self.id,
             'user_id': self.user_id,
             'product_id': self.product_id,
-            # 'quantity': self.quantity
+            'quantity': self.quantity
         }

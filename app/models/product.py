@@ -50,3 +50,18 @@ class Product(db.Model):
         }
         product_dict["creator"] = self.user.to_dict()
         return product_dict
+
+    def to_cart_dict(self):
+        product_dict = {
+            'id': self.id,
+            'user_id': self.user_id,
+            'title': self.title,
+            'description': self.description,
+            'image': self.image,
+            'price': self.price,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
+        }
+        product_dict["creator"] = self.user.to_dict()
+        product_dict['quantity'] = 1
+        return product_dict

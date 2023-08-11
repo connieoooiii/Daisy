@@ -19,10 +19,12 @@ def get_cart():
         total = 0
         for product in product_dict:
             item = Product.query.get(product['product_id'])
-            return_item = item.to_dict()
+            return_item = item.to_cart_dict()
+            return_item['quantity'] = product['quantity']
             result.append(return_item)
             # total += return_item['price']
         # result.append({'total_price': total})
+        # return product_dict
         return result
     else:
         return jsonify({"message": "You have no products in your cart"}), 404
@@ -59,7 +61,8 @@ def get_cart_total():
             item = Product.query.get(product['product_id'])
             return_item = item.to_dict()
             # result.append(return_item)
-            total += return_item['price']
+            item_amount = return_item['price'] * product['quantity']
+            total += item_amount
         return jsonify({'total_price': total})
 
     else:
@@ -101,3 +104,16 @@ def add_to_cart(productId):
             db.session.add(cart_product)
             db.session.commit()
             return result
+
+
+@cart_routes.route('/product/<int:productId>/quantity/<int:amount>', methods=['PUT'])
+@login_required
+def update_cart(productId, amount):
+    product = ShoppingCart.query.filter_by(product_id=productId, user_id=current_user.id).first()
+
+    if not product:
+        return jsonify({"error": "This product is not in your cart"}), 404
+    else:
+        product.quantity = amount
+        db.session.commit()
+        return product.to_dict()

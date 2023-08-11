@@ -3,13 +3,13 @@ from datetime import datetime
 from sqlalchemy.sql import func
 
 
-shopping_cart_products = db.Table(
-    "shopping_cart_products",
-    db.Column("shopping_cart_id", db.Integer, db.ForeignKey(add_prefix_for_prod("shopping_carts.id")), primary_key=True),
-    db.Column("product_id", db.Integer, db.ForeignKey(add_prefix_for_prod("products.id")), primary_key=True)
-)
-if environment == "production":
-    shopping_cart_products.schema = SCHEMA
+# shopping_cart_products = db.Table(
+#     "shopping_cart_products",
+#     db.Column("shopping_cart_id", db.Integer, db.ForeignKey(add_prefix_for_prod("shopping_carts.id")), primary_key=True),
+#     db.Column("product_id", db.Integer, db.ForeignKey(add_prefix_for_prod("products.id")), primary_key=True)
+# )
+# if environment == "production":
+#     shopping_cart_products.schema = SCHEMA
 
 class Product(db.Model):
     __tablename__ = 'products'
@@ -32,9 +32,9 @@ class Product(db.Model):
     # one-to-many
     user = db.relationship("User", back_populates="products")
 
-    shopping_carts = db.relationship("ShoppingCart", back_populates="products", secondary ='shopping_cart_products',cascade="all, delete-orphan")
+    cart = db.relationship("User", back_populates="shopping_cart", secondary=add_prefix_for_prod("shopping_carts"))
 
-    products = db.relationship("Review", back_populates='products', cascade="all, delete-orphan")
+    reviews = db.relationship("Review", back_populates='products', cascade="all, delete-orphan")
 
 
     def to_dict(self):

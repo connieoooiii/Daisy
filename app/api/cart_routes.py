@@ -78,3 +78,26 @@ def remove_from_cart(productId):
     db.session.delete(product)
     db.session.commit()
     return {"message": "Product removed from cart"}
+
+
+# add a product to user's cart
+@cart_routes.route('/product/<int:productId>', methods=['POST'])
+@login_required
+def add_to_cart(productId):
+    product = ShoppingCart.query.filter_by(product_id=productId, user_id=current_user.id).first()
+
+    if product:
+        return jsonify({"error": "Product already in your cart"}), 404
+    else:
+        item = Product.query.get(productId)
+        result = item.to_dict()
+        if result['user_id'] == current_user.id:
+            return jsonify({"error": "You can't add your own product into your cart"}), 404
+        else:
+            cart_product = ShoppingCart(
+                user_id = current_user.id,
+                product_id = productId
+            )
+            db.session.add(cart_product)
+            db.session.commit()
+            return result

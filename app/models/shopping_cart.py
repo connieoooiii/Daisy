@@ -20,9 +20,9 @@ class ShoppingCart(db.Model):
                            server_default=func.now(), onupdate=func.now())
 
 
-    # product = db.relationship("Product", secondary ='shopping_cart_products', back_populates="shopping_carts")
+    product = db.relationship("Product", back_populates="cart")
 
-    # user = db.relationship("User", back_populates="shopping_carts")
+    user = db.relationship("User", back_populates="cart")
 
 
     def to_dict(self):

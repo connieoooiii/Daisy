@@ -32,7 +32,7 @@ class Product(db.Model):
     # one-to-many
     user = db.relationship("User", back_populates="products")
 
-    cart = db.relationship("User", back_populates="shopping_cart", secondary=add_prefix_for_prod("shopping_carts"))
+    cart = db.relationship("ShoppingCart", back_populates="product", cascade="all, delete-orphan")
 
     reviews = db.relationship("Review", back_populates='products', cascade="all, delete-orphan")
 

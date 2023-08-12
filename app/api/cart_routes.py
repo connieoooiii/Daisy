@@ -27,8 +27,6 @@ def get_cart():
         return jsonify({"message": "You have no products in your cart"}), 404
 
 
-
-
 #remove all products from a user's cart
 @cart_routes.route('', methods=['DELETE'])
 @login_required

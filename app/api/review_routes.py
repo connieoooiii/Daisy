@@ -15,7 +15,10 @@ def update_review(reviewId):
     review = Review.query.get(reviewId)
 
     if not review:
-        return jsonify({"error": "Your review for this product wasn't found"}), 404
+        return jsonify({"error": "Review for this product wasn't found"}), 404
+
+    if review.user_id != current_user.id:
+        return jsonify({"error": "You can't update a review that isn't yours!"}), 404
 
     if form.validate_on_submit():
         review.stars = form.data['stars']

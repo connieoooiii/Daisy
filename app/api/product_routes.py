@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models import Product, User, db, Review
 from app.forms import ProductForm, ReviewForm
 from .auth_routes import validation_errors_to_error_messages
+from sqlalchemy import func
 
 product_routes = Blueprint('products', __name__)
 
@@ -11,7 +12,23 @@ product_routes = Blueprint('products', __name__)
 @product_routes.route('')
 def get_all_products():
     products = Product.query.order_by(Product.updated_at.desc()).all()
-    return  [product.to_dict() for product in products]
+    product_list = []
+
+    for product in products:
+
+        avg_stars = db.session.query(func.avg(Review.stars)).filter(Review.product_id == product.id).scalar() #query to find avg stars for reviews associated with product
+
+        if not avg_stars:
+            avg_stars = 0
+        avg_stars = round(avg_stars, 2)
+
+        product_dict = product.to_dict()
+
+        product_dict['avg_stars'] = avg_stars
+
+        product_list.append(product_dict)
+
+    return product_list
 
 
 #create a product route
@@ -104,7 +121,16 @@ def get_one_product(productId):
     product = Product.query.get(productId)
     if not product:
         return jsonify({"erorr": "Product not found"}), 404
+
+    avg_stars = db.session.query(func.avg(Review.stars)).filter(Review.product_id == productId).scalar()
+
+    if not avg_stars:
+            avg_stars = 0
+
+    avg_stars = round(avg_stars, 2)
+
     response = product.to_dict()
+    response['avg_stars'] = avg_stars
     return response
 
 

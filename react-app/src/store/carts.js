@@ -145,6 +145,53 @@ const cartReducer = (state = initialState, action) => {
         total: {...state.total},
       };
     }
+    case DELETE_CART_PRODUCT: {
+      const newState = {
+        ...state,
+        cartProducts: {...state.cartProducts},
+        total: {},
+      };
+      delete newState.cartProducts[action.productId];
+      return newState;
+    }
+    case DELETE_ALL_CART: {
+      const newState = {
+        ...state,
+        cartProducts: {...state.cartProducts},
+        total: {...state.total},
+      };
+      for (let product in action.products) {
+        delete newState.cartProducts[product];
+      }
+      return newState;
+    }
+    case ADD_CART: {
+      return {
+        ...state,
+        cartProducts: {
+          ...state.cartProducts,
+          [action.product.id]: action.product,
+        },
+      };
+    }
+    case UPDATE_CART: {
+      return {
+        ...state,
+        cartProducts: {
+          ...state.cartProducts,
+          [action.product.id]: action.product,
+        },
+      };
+    }
+    case CART_TOTAL: {
+      const newState = {
+        ...state,
+        cartProducts: {...state.cartProducts},
+        total: {},
+      };
+      newState.total = total;
+      return newState;
+    }
     default:
       return state;
   }

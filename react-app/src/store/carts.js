@@ -189,7 +189,7 @@ const cartReducer = (state = initialState, action) => {
         cartProducts: {...state.cartProducts},
         total: {},
       };
-      newState.total = total;
+      newState.total = action.total;
       return newState;
     }
     default:

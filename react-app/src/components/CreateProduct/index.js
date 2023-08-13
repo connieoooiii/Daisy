@@ -21,7 +21,9 @@ export default function CreateProduct() {
   useEffect(() => {
     const errorsObj = {};
 
-    if (!image) errorsObj.image = "Image is required";
+    if (!image)
+      errorsObj.image =
+        "Image is required. Allowed formats: pdf, png, jpg, jpeg, gif ";
     if (!title) errorsObj.title = "Title is required";
     if (!price) errorsObj.title = "Please input a price";
 
@@ -37,6 +39,19 @@ export default function CreateProduct() {
     setErrors(errorsObj);
   }, [image, price, title, description]);
 
+  const handleImageChange = (file) => {
+    if (file) {
+      const allowedExtensions = ["pdf", "png", "jpg", "jpeg", "gif"];
+      const fileExtension = file.name.split(".").pop().toLowerCase();
+
+      if (allowedExtensions.includes(fileExtension)) {
+        setImage(file);
+      } else {
+        setImage(null);
+      }
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -47,15 +62,22 @@ export default function CreateProduct() {
 
     const newPrice = fixedPrice(price);
 
-    console.log("I am in handle submit there are no errors");
-    const newProduct = {
-      title,
-      description,
-      image,
-      price: newPrice,
-    };
+    const formData = new FormData();
 
-    const dispatchedProduct = await dispatch(addProductThunk(newProduct));
+    formData.append("image", image);
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("price", newPrice);
+
+    console.log("I am in handle submit there are no errors");
+    // const newProduct = {
+    //   title,
+    //   description,
+    //   image,
+    //   price: newPrice,
+    // };
+
+    const dispatchedProduct = await dispatch(addProductThunk(formData));
 
     console.log("🤠 dispatched product", dispatchedProduct);
 
@@ -69,7 +91,7 @@ export default function CreateProduct() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
           <div>Share your product with the world</div>
           <div>We can't wait to give it a try</div>
@@ -77,10 +99,9 @@ export default function CreateProduct() {
         <div>
           <label>Image</label>
           <input
-            type="text"
-            placeholder="Share an image of this beauty"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
+            type="file"
+            accept="image/*"
+            onChange={(e) => handleImageChange(e.target.files[0])}
           />
         </div>
         {didSubmit && errors.image && (

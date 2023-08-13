@@ -34,7 +34,7 @@ export default function ManageProducts() {
             <div className="the-buttons">
               <div className="editpro-wrap">
                 <OpenModalButton
-                  modalComponent={<UpdateProduct productId={product.id} />}
+                  modalComponent={<UpdateProduct product={product} />}
                   buttonText="Update"
                 />
               </div>

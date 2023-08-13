@@ -8,7 +8,7 @@ import {getOneProductThunk, updateProductThunk} from "../../store/products";
 
 const fixedPrice = (price) => (+price).toFixed(2);
 
-export default function UpdateProduct({productId}) {
+export default function UpdateProduct({product}) {
   const dispatch = useDispatch();
   const history = useHistory();
   const {closeModal} = useModal();
@@ -23,18 +23,20 @@ export default function UpdateProduct({productId}) {
   const [didSubmit, setDidSubmit] = useState(false);
 
   useEffect(() => {
-    dispatch(getOneProductThunk(productId)).then((product) => {
-      setImage(product.image);
+    dispatch(getOneProductThunk(product.id)).then((product) => {
       setDescription(product.description);
+      // setImage(product.image);
       setPrice(product.price);
       setTitle(product.title);
     });
-  }, [dispatch, productId]);
+  }, [dispatch, product.id]);
 
   useEffect(() => {
     const errorsObj = {};
 
-    if (!image) errorsObj.image = "Image is required";
+    // if (!image)
+    //   errorsObj.image =
+    //     "Image is required. Allowed formats: pdf, png, jpg, jpeg, gif ";
     if (!title) errorsObj.title = "Title is required";
     if (!price) errorsObj.title = "Please input a price";
 
@@ -48,7 +50,7 @@ export default function UpdateProduct({productId}) {
     if (price < 0) errorsObj.price = "Price must be at least 0";
 
     setErrors(errorsObj);
-  }, [image, price, title, description]);
+  }, [price, title, description]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,21 +65,19 @@ export default function UpdateProduct({productId}) {
     const newPrice = fixedPrice(price);
 
     const updatedProduct = {
-      id: productId,
+      id: product.id,
       user_id,
       title,
       description,
-      image,
       price: newPrice,
     };
 
     console.log("INSIDE handle submit update product");
-    console.log("updated product", updatedProduct);
+
     const dispatchedProduct = await dispatch(
       updateProductThunk(updatedProduct)
     );
 
-    setImage("");
     setDescription("");
     setTitle("");
     setPrice("");
@@ -90,18 +90,6 @@ export default function UpdateProduct({productId}) {
       <form className="updatepro-form" onSubmit={handleSubmit}>
         <div>Update Your Product</div>
 
-        <div>
-          <label>Image</label>
-          <input
-            type="text"
-            placeholder="Share an image of this beauty"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-          />
-        </div>
-        {didSubmit && errors.image && (
-          <p className="sign-err">{errors.image}</p>
-        )}
         <div>
           <label>Title</label>
           <input

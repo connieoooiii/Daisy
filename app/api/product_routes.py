@@ -1,9 +1,10 @@
 from flask import Blueprint, jsonify, request, redirect, url_for
 from flask_login import login_required, current_user
 from app.models import Product, User, db, Review
-from app.forms import ProductForm, ReviewForm
+from app.forms import ProductForm, ReviewForm, UpdateProductForm
 from .auth_routes import validation_errors_to_error_messages
 from sqlalchemy import func
+from .AWS_helpers import upload_file_to_s3, get_unique_filename
 
 product_routes = Blueprint('products', __name__)
 
@@ -39,11 +40,20 @@ def create_product():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+
+        image_file = form.data["image"]
+        image_file.filename = get_unique_filename(image_file.filename)
+        upload = upload_file_to_s3(image_file)
+        print(upload)
+
+        if "url" not in upload:
+            return upload['errors']
+
         new_product = Product(
             user_id=current_user.to_dict()['id'],
             title=form.data['title'],
             description=form.data['description'],
-            image=form.data['image'],
+            image=upload["url"],
             price=form.data['price']
         )
         db.session.add(new_product)
@@ -138,17 +148,17 @@ def get_one_product(productId):
 @product_routes.route('/<int:productId>', methods=["PUT"])
 @login_required
 def update_product(productId):
-    form = ProductForm()
+    form = UpdateProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     product = Product.query.get(productId)
     if not product:
         return jsonify({"erorr": "Product not found"}), 404
 
     if form.validate_on_submit():
+
         print('no validation errors for update product')
         product.title = form.data['title']
         product.description=form.data['description']
-        product.image=form.data['image']
         product.price=form.data['price']
 
         db.session.commit()

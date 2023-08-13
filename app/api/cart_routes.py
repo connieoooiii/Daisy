@@ -101,6 +101,7 @@ def add_to_cart(productId):
             return result
 
 
+#update the quantity of a product in a cart
 @cart_routes.route('/product/<int:productId>/quantity/<int:amount>', methods=['PUT'])
 @login_required
 def update_cart(productId, amount):

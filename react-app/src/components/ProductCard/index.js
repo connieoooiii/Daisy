@@ -17,7 +17,7 @@ export default function ProductCard({product}) {
               src="https://cdn.discordapp.com/attachments/1138505164358164483/1138930197878550679/daisy.png"
               className="sell-img"
             />
-            <div className="sell-user">{product.creator.username}</div>
+            <div className="sell-user">{product?.creator?.username}</div>
           </div>
         </div>
       </Link>

@@ -1,6 +1,10 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {carTotalThunk, loadCartThunk} from "../../store/carts";
+import {
+  cartTotalThunk,
+  deleteAllCartThunk,
+  loadCartThunk,
+} from "../../store/carts";
 import CartItem from "../CartItem";
 
 import "./ShoppingCart.css";
@@ -23,8 +27,13 @@ export default function ShoppingCart() {
 
   useEffect(() => {
     dispatch(loadCartThunk());
-    dispatch(carTotalThunk());
+    dispatch(cartTotalThunk());
   }, [dispatch]);
+
+  const handleCheckout = async () => {
+    await dispatch(deleteAllCartThunk(products));
+    // dispatch(loadCartThunk());
+  };
 
   if (!products) return null;
 
@@ -35,7 +44,10 @@ export default function ShoppingCart() {
           <CartItem key={product.id} product={product} />
         ))}
       </div>
-      <div className="total-box">Total: {fixedPrice(total.total_price)}</div>
+      <div className="total-box">
+        <div>Total: {fixedPrice(total.total_price)}</div>
+        <button onClick={handleCheckout}>Proceed to checkout</button>
+      </div>
     </div>
   );
 }

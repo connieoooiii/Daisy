@@ -1,6 +1,20 @@
 .cartpro-img {
-  width: 18rem;
-  height: 23rem;
+  width: 10rem;
+  height: 15rem;
   object-fit: cover;
   border-radius: 25px;
+}
+
+.save-quant {
+  cursor: pointer;
+  border: none;
+  color: white;
+  box-shadow: 2px 2px lightgray;
+  border-radius: 24px;
+  background-color: rgb(156, 175, 136);
+}
+
+.quant-div {
+  display: flex;
+  flex-direction: row;
 }

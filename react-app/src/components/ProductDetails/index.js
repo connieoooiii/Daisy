@@ -5,6 +5,8 @@ import {getOneProductThunk} from "../../store/products";
 
 import "./ProductDetails.css";
 
+const fixedPrice = (price) => (+price).toFixed(2);
+
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const {productId} = useParams();
@@ -25,7 +27,7 @@ export default function ProductDetails() {
       <img src={product.image} className="details-img" />
       <div className="details-info">
         <div className="d-title">{product.title}</div>
-        <div className="d-price">${product.price}</div>
+        <div className="d-price">${fixedPrice(product.price)}</div>
         <div className="d-des">{product.description}</div>
         <div className="des-seller">
           <img

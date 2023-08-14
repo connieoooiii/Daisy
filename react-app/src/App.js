@@ -9,6 +9,7 @@ import ProductsIndex from "./components/ProductsIndex";
 import ProductDetails from "./components/ProductDetails";
 import ManageProducts from "./components/ManageProducts";
 import CreateProduct from "./components/CreateProduct";
+import ShoppingCart from "./components/ShoppingCart";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route exact path="/shopping-cart">
+            <ShoppingCart />
           </Route>
           <Route exact path="/products/manage">
             <ManageProducts />

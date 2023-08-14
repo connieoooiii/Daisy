@@ -21,6 +21,10 @@ export default function ShoppingCart() {
     return state.carts.total;
   });
 
+  const user = useSelector((state) => {
+    return state.session.user;
+  });
+
   console.log("🍿 total", total);
 
   console.log("🍙  cart products", products);
@@ -35,11 +39,11 @@ export default function ShoppingCart() {
     // dispatch(loadCartThunk());
   };
 
-  if (!products) return null;
+  if (products.length === 0) return null;
 
   // if (!total) total.total_price = 0;
 
-  return (
+  return user ? (
     <div className="cart-div">
       <div className="cart-wrap">
         <h1>Shopping Cart</h1>
@@ -52,5 +56,7 @@ export default function ShoppingCart() {
         <button onClick={handleCheckout}>Proceed to checkout</button>
       </div>
     </div>
+  ) : (
+    <div>Please log in!</div>
   );
 }

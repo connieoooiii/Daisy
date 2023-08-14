@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { login } from "../../store/session";
-import { useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
+import React, {useState} from "react";
+import {login} from "../../store/session";
+import {useDispatch} from "react-redux";
+import {useModal} from "../../context/Modal";
 import "./LoginForm.css";
 
 function LoginFormModal() {
@@ -9,7 +9,7 @@ function LoginFormModal() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
-  const { closeModal } = useModal();
+  const {closeModal} = useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +17,7 @@ function LoginFormModal() {
     if (data) {
       setErrors(data);
     } else {
-        closeModal()
+      closeModal();
     }
   };
 

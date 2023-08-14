@@ -1,0 +1,66 @@
+.sign-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25rem;
+  height: 35rem;
+  padding: 1rem;
+}
+
+.sign-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign-label {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.3rem;
+  color: rgb(52, 50, 50);
+  position: relative;
+  align-items: flex-start;
+}
+
+.sign-input {
+  border: lightgray 2px solid;
+  border-radius: 10px;
+  width: 13rem;
+  height: 2rem;
+}
+
+.sign-err {
+  padding: 0;
+  margin: 0;
+  color: red;
+  font-size: 15px;
+  border: none;
+}
+
+.continue-btn {
+  margin-top: 1rem;
+  border-radius: 20px;
+  background-color: rgb(156, 175, 136);
+  color: white;
+  width: 11rem;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  border: none;
+}
+
+.welcome-sign {
+  font-size: 25px;
+  margin-bottom: 0.5rem;
+  margin-top: 10px;
+  /* position: absolute; */
+  /* z-index: 100; */
+  color: #111;
+  /* opacity: 1; */
+}
+
+.new-ideas {
+  margin-bottom: 0.4rem;
+  color: rgb(52, 50, 50);
+}

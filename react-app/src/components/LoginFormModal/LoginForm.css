@@ -18,9 +18,10 @@
 
 .demo-btn {
   border-radius: 20px;
+  border: 3px solid rgb(156, 175, 136);
+  color: rgb(156, 175, 136);
+  box-shadow: 2px 2px lightgray;
   background-color: white;
-  color: rgb(225, 22, 22);
-  border: rgb(225, 22, 22) solid 2px;
   width: 11rem;
   padding: 10px;
   cursor: pointer;

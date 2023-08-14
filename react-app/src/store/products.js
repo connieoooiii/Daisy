@@ -103,23 +103,27 @@ export const deleteProductThunk = (productId) => async (dispatch) => {
 };
 
 export const addProductThunk = (product) => async (dispatch) => {
-  console.log("I AM INSIDE THUNK, before res ");
-  const res = await fetch("/api/products", {
-    method: "POST",
-    // headers: {
-    //   "Content-Type": "application/json",
-    // },
-    body: product,
-  });
-  if (res.ok) {
-    const newProduct = await res.json();
-    console.log("INSIDE ADD PRO THUNK AFTER RES OK");
-    dispatch(addProduct(newProduct));
-    return newProduct;
-  } else {
-    const errors = await res.json();
-    console.log(errors);
-    return errors;
+  try {
+    console.log("I AM INSIDE THUNK, before res ");
+    const res = await fetch("/api/products", {
+      method: "POST",
+      body: product,
+    });
+
+    if (res.ok) {
+      const newProduct = await res.json();
+      console.log("INSIDE ADD PRO THUNK AFTER RES OK");
+      dispatch(addProduct(newProduct));
+      return newProduct;
+    } else {
+      const errors = await res.json();
+      console.log("an error occurred", errors);
+      return errors;
+    }
+  } catch (error) {
+    console.error("An error occurred while fetching:", error);
+    // You can handle the error further or return an error object
+    return {error: "An error occurred while fetching"};
   }
 };
 

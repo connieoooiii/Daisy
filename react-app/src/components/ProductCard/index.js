@@ -8,7 +8,7 @@ export default function ProductCard({product}) {
   return (
     <div className="card-wrap">
       <Link to={`/products/${product.id}`}>
-        <img src={product.image} className="product-img" />
+        <img src={product?.image} className="product-img" />
         <div className="card-info">
           <div className="product-title">{product.title}</div>
           <div className="p-price">${fixedPrice(product.price)}</div>

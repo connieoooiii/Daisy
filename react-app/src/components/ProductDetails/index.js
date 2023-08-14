@@ -1,9 +1,12 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import {getOneProductThunk} from "../../store/products";
+import {getOneProductThunk, getUserProductsThunk} from "../../store/products";
 
 import "./ProductDetails.css";
+import {addToCartThunk, loadCartThunk} from "../../store/carts";
+
+const fixedPrice = (price) => (+price).toFixed(2);
 
 export default function ProductDetails() {
   const dispatch = useDispatch();
@@ -13,11 +16,55 @@ export default function ProductDetails() {
     return state.products.singleProduct;
   });
 
+  const userProducts = useSelector((state) => {
+    return Object.values(state.products.allProducts);
+  });
+
+  const cartItems = useSelector((state) => {
+    return Object.values(state.carts.cartProducts);
+  });
+
   console.log("THE PRODUCT 🎃", product);
+
+  console.log("USERR PRODUCTS 👁️", userProducts);
+
+  console.log("CART ITEMS ⭐️", cartItems);
+
+  const userProductsId = [];
+
+  const cartItemsId = [];
+
+  for (let product of userProducts) {
+    userProductsId.push(product.id);
+  }
+
+  for (let product of cartItems) {
+    cartItemsId.push(product.id);
+  }
+
+  console.log(" 🍊user product ids", userProductsId);
+
+  console.log(" 🍀cart item ids", cartItemsId);
 
   useEffect(() => {
     dispatch(getOneProductThunk(productId));
+    dispatch(getUserProductsThunk());
+    dispatch(loadCartThunk());
   }, [dispatch, productId]);
+
+  const addToCart = async () => {
+    if (userProductsId.includes(product.id)) {
+      return alert("You can't add your own product to your cart!");
+    } else {
+      if (cartItemsId.includes(product.id)) {
+        return alert(
+          "This product is already in your cart! Please update this product in your cart"
+        );
+      } else {
+        await dispatch(addToCartThunk(product.id));
+      }
+    }
+  };
 
   if (!product) return null;
   return (
@@ -25,7 +72,7 @@ export default function ProductDetails() {
       <img src={product.image} className="details-img" />
       <div className="details-info">
         <div className="d-title">{product.title}</div>
-        <div className="d-price">${product.price}</div>
+        <div className="d-price">${fixedPrice(product.price)}</div>
         <div className="d-des">{product.description}</div>
         <div className="des-seller">
           <img
@@ -34,7 +81,10 @@ export default function ProductDetails() {
           />
           <div className="sell-user">{product?.creator?.username}</div>
         </div>
-        <button className="add-cart">Add to cart</button>
+
+        <button className="add-cart" onClick={addToCart}>
+          Add to cart
+        </button>
       </div>
     </div>
   );

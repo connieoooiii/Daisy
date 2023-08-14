@@ -1,0 +1,16 @@
+.cart-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.total-box {
+  border: 1px solid red;
+  width: 10rem;
+  height: 15rem;
+}

@@ -112,4 +112,9 @@ def update_cart(productId, amount):
     else:
         product.quantity = amount
         db.session.commit()
-        return product.to_dict()
+
+        item = Product.query.get(productId)
+        product_dict = item.to_cart_dict()
+        product_dict['quantity'] = amount
+
+        return product_dict

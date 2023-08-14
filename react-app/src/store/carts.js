@@ -117,7 +117,7 @@ export const updateCartThunk = (productId, amount) => async (dispatch) => {
   }
 };
 
-export const carTotalThunk = () => async (dispatch) => {
+export const cartTotalThunk = () => async (dispatch) => {
   const res = await fetch("/api/carts/total");
   if (res.ok) {
     const total = await res.json();
@@ -149,7 +149,7 @@ const cartReducer = (state = initialState, action) => {
       const newState = {
         ...state,
         cartProducts: {...state.cartProducts},
-        total: {},
+        total: {...state.total},
       };
       delete newState.cartProducts[action.productId];
       return newState;
@@ -158,10 +158,10 @@ const cartReducer = (state = initialState, action) => {
       const newState = {
         ...state,
         cartProducts: {...state.cartProducts},
-        total: {...state.total},
+        total: {total_price: 0},
       };
-      for (let product in action.products) {
-        delete newState.cartProducts[product];
+      for (let product of action.products) {
+        delete newState.cartProducts[product.id];
       }
       return newState;
     }

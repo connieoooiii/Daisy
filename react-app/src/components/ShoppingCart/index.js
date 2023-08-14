@@ -40,6 +40,7 @@ export default function ShoppingCart() {
   return (
     <div className="cart-div">
       <div className="cart-wrap">
+        <h1>Shopping Cart</h1>
         {products.map((product) => (
           <CartItem key={product.id} product={product} />
         ))}

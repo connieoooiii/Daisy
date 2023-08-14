@@ -24,19 +24,20 @@ export default function CartItem({product}) {
 
     if (quantity < 0) errorsObj.quantity = "Quantity must be greater than 0";
     setErrors(errorsObj);
-  }, [dispatch]);
+  }, [quantity]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setDidSubmit(true);
-    if (Object.keys(errors).length > 0) {
-      return alert("Please enter valid quantity");
+    console.log("errors", errors);
+    if (Object.keys(errors).length === 0) {
+      await dispatch(updateCartThunk(product.id, quantity));
+      await dispatch(loadCartThunk());
+      await dispatch(cartTotalThunk());
+    } else {
+      return alert("The quantity is not valid.");
     }
-
-    await dispatch(updateCartThunk(product.id, quantity));
-    await dispatch(loadCartThunk());
-    await dispatch(cartTotalThunk());
   };
   return (
     <div>
@@ -57,6 +58,9 @@ export default function CartItem({product}) {
               onChange={(e) => setQuantity(e.target.value)}
             />
           </div>
+          {didSubmit && errors.quantity && (
+            <p className="sign-err">{errors.quantity}</p>
+          )}
           <button type="submit" className="save-quant">
             Save
           </button>

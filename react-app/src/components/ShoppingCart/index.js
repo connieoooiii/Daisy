@@ -37,6 +37,8 @@ export default function ShoppingCart() {
 
   if (!products) return null;
 
+  // if (!total) total.total_price = 0;
+
   return (
     <div className="cart-div">
       <div className="cart-wrap">
@@ -46,7 +48,7 @@ export default function ShoppingCart() {
         ))}
       </div>
       <div className="total-box">
-        <div>Total: {fixedPrice(total.total_price)}</div>
+        <div>Total: ${fixedPrice(total?.total_price)}</div>
         <button onClick={handleCheckout}>Proceed to checkout</button>
       </div>
     </div>

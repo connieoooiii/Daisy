@@ -7,6 +7,7 @@ import OpenModalButton from "../OpenModalButton";
 import RemoveCartItem from "../RemoveCartItem";
 import {
   cartTotalThunk,
+  deleteCartProductThunk,
   loadCartThunk,
   updateCartThunk,
 } from "../../store/carts";
@@ -31,24 +32,36 @@ export default function CartItem({product}) {
 
     setDidSubmit(true);
     console.log("errors", errors);
-    if (Object.keys(errors).length === 0) {
+
+    if (Object.keys(errors).length > 0) {
+      return alert("The quantity is not valid.");
+    }
+
+    if (+quantity === 0) {
+      console.log("i am inside if quantity 0");
+      await dispatch(deleteCartProductThunk(product.id));
+      //   await dispatch(loadCartThunk());
+      await dispatch(cartTotalThunk());
+    } else {
       await dispatch(updateCartThunk(product.id, quantity));
       await dispatch(loadCartThunk());
       await dispatch(cartTotalThunk());
-    } else {
-      return alert("The quantity is not valid.");
     }
   };
   return (
     <div>
       <div>
         <Link to={`/products/${product.id}`}>
-          <img src={product?.image} className="cartpro-img" />
+          <img
+            src={product?.image}
+            className="cartpro-img"
+            alt="product image"
+          />
           <div>{product.title}</div>
         </Link>
 
         <div>${fixedPrice(product.quantity * product.price)}</div>
-        <div>(${product.price} each)</div>
+        <div>(${fixedPrice(product.price)} each)</div>
         <form onSubmit={handleSubmit} className="quant-div">
           <div>
             <label>Quantity</label>

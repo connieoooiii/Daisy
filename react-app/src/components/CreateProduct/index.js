@@ -23,30 +23,34 @@ export default function CreateProduct() {
   const [noPicture, setNoPicture] = useState(false);
   const uploadInput = useRef();
 
-  //   const userId = useSelector((state) => state.session.user.id);
-
   useEffect(() => {
     const errorsObj = {};
 
     if (!image)
       errorsObj.image =
         "Image is required. Allowed formats: pdf, png, jpg, jpeg, gif ";
-    if (!title) errorsObj.title = "Title is required";
-    if (!price) errorsObj.price = "Please input a price";
 
-    if (title.length > 150 && title.length < 4)
-      errorsObj.title = "Title must be between 4 to 150 characters";
+    if (!title) {
+      errorsObj.title = "Title is required";
+    } else if (title.length < 5 || title.length > 65) {
+      errorsObj.title = "Title must be between 5 and 65 characters";
+    }
 
     if (description.length > 1000)
       errorsObj.description = "Description must be 1000 characters or less";
 
-    if (isNaN(price)) errorsObj.price = "Please input a number value";
-    if (price < 0) errorsObj.price = "Price must be at least 0";
+    if (!price) {
+      errorsObj.price = "Please input a price";
+    } else if (isNaN(price)) {
+      errorsObj.price = "Please input a number value";
+    } else if (parseFloat(price) < 0) {
+      errorsObj.price = "Price must be at least 0";
+    }
 
     setErrors(errorsObj);
   }, [image, price, title, description]);
 
-  const handlePhoto = async ({currentTarget}) => {
+  const prevPhoto = async ({currentTarget}) => {
     if (currentTarget.files[0]) {
       //checks if file has been selected
       setImage(currentTarget.files[0]);
@@ -59,21 +63,21 @@ export default function CreateProduct() {
     }
   };
 
-  const handleImageChange = (file) => {
-    if (file) {
-      const allowedExtensions = ["pdf", "png", "jpg", "jpeg", "gif"];
-      const fileExtension = file.name.split(".").pop().toLowerCase();
+  // const handleImageChange = (file) => {
+  //   if (file) {
+  //     const allowedExtensions = ["pdf", "png", "jpg", "jpeg", "gif"];
+  //     const fileExtension = file.name.split(".").pop().toLowerCase();
 
-      if (allowedExtensions.includes(fileExtension)) {
-        setImage(file);
-      } else {
-        setImage(null);
-      }
-    }
-  };
+  //     if (allowedExtensions.includes(fileExtension)) {
+  //       setImage(file);
+  //     } else {
+  //       setImage(null);
+  //     }
+  //   }
+  // };
 
   let preview = null;
-  if (photoUrl) preview = <img src={photoUrl} id="preview-pin-img" alt="" />;
+  if (photoUrl) preview = <img src={photoUrl} id="prev-img" alt="" />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -150,7 +154,7 @@ export default function CreateProduct() {
         <div className="form-container">
           <div className="another">
             <div
-              id="leftContainer"
+              id="pic-side"
               className={noPicture ? "no-picture" : ""}
               onClick={() => uploadInput.current.click()}
             >
@@ -158,10 +162,8 @@ export default function CreateProduct() {
                 className="uploadButton"
                 id="image"
                 type="file"
-                // accept="image/*"
                 accept="image/png, image/jpeg, image/jpg, image/gif"
-                // onChange={(e) => setImage(e.target.files[0])}
-                onChange={handlePhoto}
+                onChange={prevPhoto}
                 ref={uploadInput}
                 style={{display: "none"}}
               />
@@ -185,7 +187,7 @@ export default function CreateProduct() {
             )}
           </div>
 
-          <div className="rightContainer">
+          <div className="text-side">
             <div className="pro-div">
               <label className="pro-label">Title</label>
               <input
@@ -212,16 +214,18 @@ export default function CreateProduct() {
             {didSubmit && errors.description && (
               <p className="sign-err">{errors.description}</p>
             )}
-            <div className="money">
+            <div className="pro-div">
               <label className="pro-label">Price</label>
-              <div className="cash">$</div>
-              <input
-                className="price-input"
-                type="number"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                placeholder="Set a price for this beauty"
-              />
+              <div className="money">
+                <div className="cash">$</div>
+                <input
+                  className="price-input"
+                  type="number"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  placeholder="Set a price for this beauty"
+                />
+              </div>
             </div>
             {didSubmit && errors.price && (
               <p className="sign-err">{errors.price}</p>

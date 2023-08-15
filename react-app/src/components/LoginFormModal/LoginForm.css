@@ -57,3 +57,14 @@
   opacity: 1;
   margin-right: 0;
 }
+
+.reg-btn > button {
+  font-size: 18px;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  margin-left: 4px;
+  padding: 0;
+  cursor: pointer;
+  color: rgb(156, 175, 136);
+}

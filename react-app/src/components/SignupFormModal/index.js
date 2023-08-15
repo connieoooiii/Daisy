@@ -202,10 +202,12 @@ function SignupFormModal() {
         </button>
         <div className="on-pinthis">
           <div className="not-on">Already a member? </div>
-          <OpenModalButton
-            buttonText="Log in"
-            modalComponent={<LoginFormModal />}
-          />
+          <div className="reg-btn">
+            <OpenModalButton
+              buttonText="Log in"
+              modalComponent={<LoginFormModal />}
+            />
+          </div>
         </div>
       </form>
     </div>

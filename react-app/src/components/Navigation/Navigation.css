@@ -1,5 +1,16 @@
 .profile-dropdown {
   position: absolute;
+  background: white;
+  border-radius: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  top: 2.3rem;
+  right: 15px;
+  z-index: 1;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 8rem;
 }
 
 .hidden {
@@ -89,4 +100,67 @@
 
 .search-input:focus {
   cursor: text;
+}
+
+.sign-nav > button {
+  background-color: transparent;
+  border: none;
+  margin-left: 4px;
+  color: rgb(156, 175, 136);
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.profile-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+.create-pro-b > button {
+  background-color: transparent;
+  border: none;
+  margin-right: 2rem;
+  cursor: pointer;
+  color: rgb(156, 175, 136);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#cart-icon {
+  color: rgb(156, 175, 136);
+  /* margin-left: 2rem; */
+}
+
+.after-log {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#user-icon {
+  color: rgb(156, 175, 136);
+  margin-right: 2rem;
+}
+
+.person-btn {
+  background-color: transparent;
+  border: none;
+}
+
+.peace-out {
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+}
+
+.ul-div > li {
+  margin: 0.5rem 0;
+}
+
+.hello > a {
+  text-decoration: none;
+  color: black;
 }

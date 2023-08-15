@@ -123,13 +123,15 @@ function LoginFormModal() {
           Demo User
         </button>
       </form>
-      {/* <div className="on-pinthis">
+      <div className="on-pinthis">
         <div className="not-on">Not a member yet? </div>
-        <OpenModalButton
-          buttonText="Log in"
-          modalComponent={<LoginFormModal />}
-        />
-      </div> */}
+        <div className="reg-btn">
+          <OpenModalButton
+            buttonText="Register"
+            modalComponent={<SignupFormModal />}
+          />
+        </div>
+      </div>
     </div>
   );
 }

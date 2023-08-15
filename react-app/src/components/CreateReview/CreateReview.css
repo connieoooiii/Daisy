@@ -1,0 +1,86 @@
+/* .rvw-wrap {
+  padding-left: 1rem;
+  padding-right: 1rem;
+} */
+
+.rating-input {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.rating-input .filled {
+  color: black;
+}
+
+.rating-input .empty {
+  color: rgb(193, 192, 192);
+}
+
+.text-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.rvw-btn {
+  cursor: pointer;
+  border: none;
+  color: white;
+  box-shadow: 2px 2px lightgray;
+  border-radius: 24px;
+  background-color: rgb(156, 175, 136);
+  width: 100%;
+  height: 2rem;
+  margin-top: 6px;
+}
+
+.rvw-btn.inactive {
+  background-color: white;
+  color: gray;
+  box-shadow: 2px 2px gray;
+  border: 1px solid darkgray;
+}
+
+.how-was {
+  margin-top: 1rem;
+  font-size: larger;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.rev-form {
+  margin-top: 0.2rem;
+  margin-bottom: 0;
+}
+
+.leave-rev {
+  background-color: white;
+  height: 5rem;
+  width: 14rem;
+  border: 2px solid black;
+}
+
+.i-stars {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.starss {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.rvw-wrap {
+  height: 15rem;
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

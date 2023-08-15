@@ -5,6 +5,9 @@ import {getOneProductThunk, getUserProductsThunk} from "../../store/products";
 
 import "./ProductDetails.css";
 import {addToCartThunk, loadCartThunk} from "../../store/carts";
+import {loadProductReviewsThunk} from "../../store/reviews";
+import OpenModalButton from "../OpenModalButton";
+import CreateReview from "../CreateReview";
 
 const fixedPrice = (price) => (+price).toFixed(2);
 
@@ -28,6 +31,10 @@ export default function ProductDetails() {
     return state.session.user;
   });
 
+  const reviews = useSelector((state) => {
+    return Object.values(state.reviews);
+  });
+
   console.log("USER", user);
 
   console.log("THE PRODUCT 🎃", product);
@@ -35,6 +42,8 @@ export default function ProductDetails() {
   console.log("USERR PRODUCTS 👁️", userProducts);
 
   console.log("CART ITEMS ⭐️", cartItems);
+
+  console.log("REVIEWS 🤡", reviews);
 
   const userProductsId = [];
 
@@ -48,7 +57,13 @@ export default function ProductDetails() {
     cartItemsId.push(product.id);
   }
 
-  console.log(" 🍊user product ids", userProductsId);
+  const reviewUserIds = [];
+
+  for (let review of reviews) {
+    reviewUserIds.push(review.user_id);
+  }
+
+  console.log(" 🍊 review user ids", reviewUserIds);
 
   console.log(" 🍀cart item ids", cartItemsId);
 
@@ -56,6 +71,7 @@ export default function ProductDetails() {
     dispatch(getOneProductThunk(productId));
     dispatch(getUserProductsThunk());
     dispatch(loadCartThunk());
+    dispatch(loadProductReviewsThunk(productId));
   }, [dispatch, productId]);
 
   const addToCart = async () => {
@@ -71,12 +87,16 @@ export default function ProductDetails() {
         );
       } else {
         await dispatch(addToCartThunk(product.id));
+        await dispatch(loadCartThunk());
         return alert(`${product.title} has been added to your cart!`);
       }
     }
   };
 
-  if (!product) return null;
+  if (product === null) {
+    return <h1>Hold still while we load this amazing product bestie!</h1>;
+  }
+
   return (
     <div className="details-wrap">
       <img src={product.image} className="details-img" />
@@ -95,6 +115,14 @@ export default function ProductDetails() {
         <button className="add-cart" onClick={addToCart}>
           Add to cart
         </button>
+      </div>
+      <div className="p-rev">
+        {user.id !== product.user_id && !reviewUserIds.includes(user.id) && (
+          <OpenModalButton
+            modalComponent={<CreateReview user={user} productId={product.id} />}
+            buttonText="Post Your Review"
+          />
+        )}
       </div>
     </div>
   );

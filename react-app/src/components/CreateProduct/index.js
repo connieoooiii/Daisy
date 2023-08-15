@@ -97,12 +97,6 @@ export default function CreateProduct() {
     formData.append("price", newPrice);
 
     console.log("I am in handle submit there are no errors");
-    // const newProduct = {
-    //   title,
-    //   description,
-    //   image,
-    //   price: newPrice,
-    // };
 
     const dispatchedProduct = await dispatch(addProductThunk(formData));
 
@@ -130,27 +124,7 @@ export default function CreateProduct() {
           <div className="share">Share your product with the world</div>
           <div className="try">We can't wait to give it a try</div>
         </div>
-        {/* <div>
-          <label>Image</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => handleImageChange(e.target.files[0])}
-          />
-          {preview || (
-            <div
-              id="upload-sign-box-text"
-              className={noPicture ? "no-picture" : ""}
-            >
-              <i className="fa-solid fa-upload"></i>
-              <div>
-                {!noPicture
-                  ? "Click to upload."
-                  : "An Image is required to create a Pin."}
-              </div>
-            </div>
-          )}
-        </div> */}
+
         <div className="form-container">
           <div className="another">
             <div
@@ -239,4 +213,28 @@ export default function CreateProduct() {
       </form>
     </div>
   );
+}
+
+{
+  /* <div>
+          <label>Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => handleImageChange(e.target.files[0])}
+          />
+          {preview || (
+            <div
+              id="upload-sign-box-text"
+              className={noPicture ? "no-picture" : ""}
+            >
+              <i className="fa-solid fa-upload"></i>
+              <div>
+                {!noPicture
+                  ? "Click to upload."
+                  : "An Image is required to create a Pin."}
+              </div>
+            </div>
+          )}
+        </div> */
 }

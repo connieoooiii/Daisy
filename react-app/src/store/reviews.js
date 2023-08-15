@@ -1,0 +1,131 @@
+/** Action Type Constants: */
+const LOAD_REVIEWS = "reviews/LOAD_REVIEWS";
+
+const DELETE_REVIEW = "reviews/DELETE_REVIEWS";
+
+const CREATE_REVIEW = "reviews/CREATE_REVIEWS";
+
+const UPDATE_REVIEW = "reviews/UPDATE_REVIEWS";
+
+/**  Action Creators: */
+export const loadReviews = (reviews) => ({
+  type: LOAD_REVIEWS,
+  reviews,
+});
+
+export const deleteReview = (reviewId) => {
+  return {
+    type: DELETE_REVIEW,
+    reviewId,
+  };
+};
+
+export const createReview = (review) => {
+  return {
+    type: CREATE_REVIEW,
+    review,
+  };
+};
+
+export const updateReview = (review) => ({
+  type: UPDATE_REVIEW,
+  review,
+});
+
+/** Thunk Action Creators: */
+export const loadProductReviewsThunk = (productId) => async (dispatch) => {
+  const res = await fetch(`/api/products/${productId}/reviews`);
+
+  if (res.ok) {
+    const reviews = await res.json();
+    dispatch(loadReviews(reviews));
+    return reviews;
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+};
+
+export const deleteReviewThunk = (productId, reviewId) => async (dispatch) => {
+  const res = await fetch(`/api/reviews/product/${productId}`, {
+    method: "DELETE",
+  });
+
+  if (res.ok) {
+    const review = await res.json();
+    dispatch(deleteReview(reviewId));
+    return review;
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+};
+
+export const createReviewThunk = (productId, review) => async (dispatch) => {
+  try {
+    console.log("I AM BEFORE RES");
+    const res = await fetch(`/api/products/${productId}/reviews`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(review),
+    });
+
+    if (res.ok) {
+      console.log("I AM AFTER RES");
+      const newReview = await res.json();
+      dispatch(createReview(newReview));
+      return newReview;
+    }
+  } catch (err) {
+    return err;
+  }
+};
+
+export const updateReviewThunk = (review) => async (dispatch) => {
+  const res = fetch(`/api/reviews/${review.id}`, {
+    method: "PUT",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(review),
+  });
+  if (res.ok) {
+    const editReview = await res.json();
+    dispatch(createReview(editReview));
+    return editReview;
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+};
+/** Reviews Reducer: */
+const initialState = {};
+
+const reviewReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case LOAD_REVIEWS: {
+      const reviewsState = {};
+      action.reviews.forEach((review) => {
+        reviewsState[review.id] = review;
+      });
+      return reviewsState;
+    }
+    case DELETE_REVIEW: {
+      const newState = {...state};
+      delete newState[action.reviewId];
+      return newState;
+    }
+    case CREATE_REVIEW: {
+      console.log("I AM INSIDE REV REDUCER");
+      return {...state, [action.review.id]: action.review};
+    }
+    case UPDATE_REVIEW: {
+      return {
+        ...state,
+        [action.review.id]: action.review,
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+export default reviewReducer;

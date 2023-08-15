@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 0.5rem;
 }
 
 .yes-del {
@@ -42,4 +43,8 @@
 
 #modal-content {
   border-radius: 24px;
+}
+
+.pro-div {
+  margin: 1rem 0;
 }

@@ -55,7 +55,7 @@ function ProfileButton({user}) {
             </button>
             <ul className={ulClassName} ref={ulRef}>
               <div className="ul-div">
-                <li className="hello">Hello, {user?.first_name}</li>
+                <li className="hello">Hello, {user?.first_name}!</li>
                 <li className="hello">
                   <Link to="/products/manage">Manage Products</Link>
                 </li>

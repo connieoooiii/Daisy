@@ -11,14 +11,17 @@ import {
   loadCartThunk,
   updateCartThunk,
 } from "../../store/carts";
+import {getOneProductThunk} from "../../store/products";
 
 const fixedPrice = (price) => (+price).toFixed(2);
 
 export default function CartItem({product}) {
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(product.quantity);
+  const [quantity, setQuantity] = useState("");
   const [didSubmit, setDidSubmit] = useState(false);
   const [errors, setErrors] = useState({});
+
+  console.log("PRODUCT 🐼", product);
 
   useEffect(() => {
     const errorsObj = {};
@@ -26,6 +29,10 @@ export default function CartItem({product}) {
     if (quantity < 0) errorsObj.quantity = "Quantity must be greater than 0";
     setErrors(errorsObj);
   }, [quantity]);
+
+  useEffect(() => {
+    setQuantity(product.quantity);
+  }, [product.quantity]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

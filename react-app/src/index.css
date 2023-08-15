@@ -1,1 +1,14 @@
 /* TODO Add site wide styles */
+* {
+  margin: 0px 0px;
+  padding: 0;
+  /* box-sizing: border-box; */
+  font-family: "PT Serif", serif;
+  list-style-type: none;
+}
+
+/* html body {
+  margin: 2px 16px;
+  height: 100%;
+  padding-top: 80px;
+} */

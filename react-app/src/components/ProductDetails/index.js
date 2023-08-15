@@ -24,6 +24,12 @@ export default function ProductDetails() {
     return Object.values(state.carts.cartProducts);
   });
 
+  const user = useSelector((state) => {
+    return state.session.user;
+  });
+
+  console.log("USER", user);
+
   console.log("THE PRODUCT 🎃", product);
 
   console.log("USERR PRODUCTS 👁️", userProducts);
@@ -53,6 +59,9 @@ export default function ProductDetails() {
   }, [dispatch, productId]);
 
   const addToCart = async () => {
+    if (user === null) {
+      return alert("Log in to add this product to your cart!");
+    }
     if (userProductsId.includes(product.id)) {
       return alert("You can't add your own product to your cart!");
     } else {
@@ -62,6 +71,7 @@ export default function ProductDetails() {
         );
       } else {
         await dispatch(addToCartThunk(product.id));
+        return alert(`${product.title} has been added to your cart!`);
       }
     }
   };
@@ -72,7 +82,7 @@ export default function ProductDetails() {
       <img src={product.image} className="details-img" />
       <div className="details-info">
         <div className="d-title">{product.title}</div>
-        <div className="d-price">${fixedPrice(product.price)}</div>
+        {product && <div className="d-price">${fixedPrice(product.price)}</div>}
         <div className="d-des">{product.description}</div>
         <div className="des-seller">
           <img

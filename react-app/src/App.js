@@ -23,6 +23,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path="/">
+            <ProductsIndex />
+          </Route>
           <Route exact path="/products">
             <ProductsIndex />
           </Route>

@@ -23,7 +23,7 @@ class Product(db.Model):
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=True)
     image= db.Column(db.String, nullable=False)
-    price = db.Column(db.Integer, nullable= False)
+    price = db.Column(db.Float, nullable= False)
     created_at = db.Column(db.DateTime(timezone=True),
                            server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True),

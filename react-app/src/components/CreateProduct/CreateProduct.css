@@ -1,4 +1,4 @@
-#leftContainer {
+#pic-side {
   width: 15rem;
   height: 20rem;
   border-radius: 8px;
@@ -10,10 +10,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   /* margin-top: 3rem; */
 }
 
-#preview-pin-img {
+#prev-img {
   width: 15rem;
   height: 20rem;
 }
@@ -22,14 +23,13 @@
   display: flex;
   flex: row;
   justify-content: center;
-  align-items: center;
   text-align: center;
-  align-items: center;
+  /* align-items: center; */
   background-color: #fff;
   border-radius: 25px;
 }
 
-.rightContainer {
+.text-side {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,8 +58,9 @@
 }
 
 .share {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 25px;
+  font-weight: 700;
+  color: rgb(156, 175, 136);
 }
 
 .top-div {
@@ -71,6 +72,7 @@
 
 .try {
   margin-bottom: 1rem;
+  font-size: 17px;
 }
 
 .another {
@@ -100,4 +102,21 @@
   border-radius: 10px;
   width: 13rem;
   height: 2rem;
+}
+
+.money {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pro-div {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+.cash {
+  margin-right: 4px;
 }

@@ -10,7 +10,22 @@
 }
 
 .total-box {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   width: 10rem;
   height: 15rem;
+  display: flex;
+  flex-direction: column;
+}
+
+#proceed-ck {
+  border-radius: 24px;
+  background-color: rgb(156, 175, 136);
+  color: white;
+  border: none;
+  width: 10rem;
+  padding: 0.4rem;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 0.4rem;
 }

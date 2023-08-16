@@ -58,7 +58,9 @@ export default function ShoppingCart() {
       </div>
       <div className="total-box">
         <div>Total: ${fixedPrice(total?.total_price)}</div>
-        <button onClick={handleCheckout}>Proceed to checkout</button>
+        <button onClick={handleCheckout} id="proceed-ck" className="proceed-ck">
+          Proceed to checkout
+        </button>
       </div>
     </div>
   ) : (

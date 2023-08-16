@@ -20,26 +20,25 @@ function LoginFormModal() {
   useEffect(() => {
     const errorsObj = {};
 
-    if (!email) errorsObj.logEmail = "Email is required";
-
+    if (!email) {
+      errorsObj.email = "Email is required";
+    } else {
+      const emailLength = email.length;
+      if (emailLength < 4 || emailLength > 40) {
+        errorsObj.email = "Email must be between 4 and 40 characters";
+      }
+    }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
-      errorsObj.logEmail = "Please enter a valid email address";
+      errorsObj.email = "Please enter a valid email address";
     }
+
+    if (!password) errorsObj.password = "Password is required";
 
     setFormErr(errorsObj);
   }, [email, password]);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const data = await dispatch(login(email, password));
-  //   if (data) {
-  //     setErrors(data);
-  //   } else {
-  //     closeModal();
-  //   }
-  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setDidSubmit(true);
@@ -47,12 +46,14 @@ function LoginFormModal() {
       const data = await dispatch(login({email, password}));
       if (data) {
         console.log("🐤 DATA", data);
-        const flattenedData = {};
-        data.forEach((item) => {
-          const [key, value] = item.split(" : ");
-          flattenedData[key.trim()] = value.trim();
-        });
-        setFormErr(flattenedData);
+        const errorsObj = {invalid: "Invalidal credentials"};
+
+        // const flattenedData = {};
+        // data.forEach((item) => {
+        //   const [key, value] = item.split(" : ");
+        //   flattenedData[key.trim()] = value.trim();
+        // });
+        setFormErr(errorsObj);
       } else {
         closeModal();
         history.push("/products");
@@ -86,6 +87,9 @@ function LoginFormModal() {
             <li key={idx}>{error}</li>
           ))}
         </ul> */}
+        {didSubmit && formErr.invalid && (
+          <p className="sign-err">{formErr.invalid}</p>
+        )}
         <label className="sign-label">
           Email
           <input
@@ -101,8 +105,8 @@ function LoginFormModal() {
         {didSubmit && formErr.email && (
           <p className="sign-err">{formErr.email}</p>
         )}
-        {didSubmit && formErr.logEmail && (
-          <p className="sign-err">{formErr.logEmail}</p>
+        {email.length < 4 && email.length > 0 && (
+          <p className="sign-err">Email is required</p>
         )}
         <label className="sign-label">
           Password
@@ -113,6 +117,9 @@ function LoginFormModal() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
+        {password.length < 6 && password.length > 0 && (
+          <p className="sign-err">Password is required</p>
+        )}
         {didSubmit && formErr.password && (
           <p className="sign-err">{formErr.password}</p>
         )}

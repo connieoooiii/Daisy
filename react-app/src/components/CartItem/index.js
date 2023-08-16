@@ -26,7 +26,8 @@ export default function CartItem({product}) {
   useEffect(() => {
     const errorsObj = {};
 
-    if (quantity < 0) errorsObj.quantity = "Quantity must be greater than 0";
+    if (quantity < 0 || quantity > 100)
+      errorsObj.quantity = "Quantity must be greater than 0 and less than 100";
     setErrors(errorsObj);
   }, [quantity]);
 

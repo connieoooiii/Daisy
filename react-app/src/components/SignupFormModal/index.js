@@ -63,8 +63,8 @@ function SignupFormModal() {
       errorsObj.email = "Please enter a valid email address";
     }
 
-    if (password.length < 6)
-      errorsObj.passLength = "Password must be at least 6 characters";
+    if (password.length < 6 || password.length > 51)
+      errorsObj.passLength = "Password must be between 6 and 50 characters";
 
     setFormErr(errorsObj);
   }, [email, username, password, first_name, last_name]);

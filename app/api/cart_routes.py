@@ -102,6 +102,21 @@ def add_to_cart(productId):
             db.session.commit()
             return result
 
+#product is already in cart so increase quantity by 1
+@cart_routes.route('/product/<int:productId>', methods=['PUT'])
+@login_required
+def plus_one_item(productId):
+    cart_item = ShoppingCart.query.filter_by(product_id=productId, user_id=current_user.id).first()
+
+    if not cart_item:
+        return jsonify({"error": "This product is not in your cart"}), 404
+    else:
+        cart_item.quantity = cart_item.quantity + 1
+        db.session.commit()
+
+        updated_cart_item = cart_item.to_dict()
+        return jsonify(updated_cart_item)
+
 
 #update the quantity of a product in a cart
 @cart_routes.route('/product/<int:productId>/quantity/<int:amount>', methods=['PUT'])

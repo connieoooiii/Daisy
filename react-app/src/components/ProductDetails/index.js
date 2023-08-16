@@ -4,11 +4,16 @@ import {useParams, useHistory} from "react-router-dom";
 import {getOneProductThunk, getUserProductsThunk} from "../../store/products";
 
 import "./ProductDetails.css";
-import {addToCartThunk, loadCartThunk} from "../../store/carts";
+import {
+  addToCartThunk,
+  loadCartThunk,
+  productAlreadyInThunk,
+} from "../../store/carts";
 import {loadProductReviewsThunk, loadReviews} from "../../store/reviews";
 import OpenModalButton from "../OpenModalButton";
 import CreateReview from "../CreateReview";
 import ProductReviews from "../ProductReviews";
+import UpdateProduct from "../UpdateProduct";
 
 const fixedPrice = (price) => (+price).toFixed(2);
 
@@ -90,9 +95,9 @@ export default function ProductDetails() {
       return alert("You can't add your own product to your cart!");
     } else {
       if (cartItemsId.includes(product.id)) {
-        return alert(
-          "This product is already in your cart! Please update this product in your cart"
-        );
+        await dispatch(productAlreadyInThunk(product.id));
+        await dispatch(loadCartThunk());
+        history.push("/shopping-cart");
       } else {
         await dispatch(addToCartThunk(product.id));
         await dispatch(loadCartThunk());
@@ -120,9 +125,20 @@ export default function ProductDetails() {
           <div className="sell-user">{product?.creator?.username}</div>
         </div>
 
-        <button className="add-cart" onClick={addToCart}>
-          Add to cart
-        </button>
+        {user && !userProductsId.includes(product.id) && (
+          <button className="add-cart" onClick={addToCart}>
+            Add to cart
+          </button>
+        )}
+
+        {user && userProductsId.includes(product.id) && (
+          <div className="prod-edit">
+            <OpenModalButton
+              modalComponent={<UpdateProduct product={product} />}
+              buttonText="Update Your Product"
+            />
+          </div>
+        )}
       </div>
       <div className="review-wrap">
         <div className="r-wrap">

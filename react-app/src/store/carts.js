@@ -129,6 +129,21 @@ export const cartTotalThunk = () => async (dispatch) => {
   }
 };
 
+export const productAlreadyInThunk = (productId) => async (dispatch) => {
+  const res = await fetch(`/api/carts/product/${productId}`, {
+    method: "PUT",
+    headers: {"Content-Type": "application/json"},
+  });
+  if (res.ok) {
+    const product = await res.json();
+    dispatch(updateCart(product));
+    return product;
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+};
+
 /** Products Reducer: */
 const initialState = {cartProducts: {}, total: {}};
 

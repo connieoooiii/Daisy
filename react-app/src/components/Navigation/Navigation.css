@@ -32,7 +32,7 @@
   /* width: 100%; */
   height: 70px;
   position: relative;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .cloud-nav {
@@ -143,6 +143,7 @@
 #user-icon {
   color: rgb(156, 175, 136);
   margin-right: 2rem;
+  cursor: pointer;
 }
 
 .person-btn {
@@ -154,6 +155,7 @@
   background-color: transparent;
   border: none;
   font-size: 15px;
+  cursor: pointer;
 }
 
 .ul-div > li {

@@ -34,20 +34,22 @@ export default function UpdateProduct({product}) {
   useEffect(() => {
     const errorsObj = {};
 
-    // if (!image)
-    //   errorsObj.image =
-    //     "Image is required. Allowed formats: pdf, png, jpg, jpeg, gif ";
-    if (!title) errorsObj.title = "Title is required";
-    if (!price) errorsObj.title = "Please input a price";
-
-    if (title.length > 150 && title.length < 4)
-      errorsObj.title = "Title must be between 4 to 150 characters";
+    if (!title) {
+      errorsObj.title = "Title is required";
+    } else if (title.length < 5 || title.length > 65) {
+      errorsObj.title = "Title must be between 5 and 65 characters";
+    }
 
     if (description.length > 1000)
       errorsObj.description = "Description must be 1000 characters or less";
 
-    if (isNaN(price)) errorsObj.price = "Please input a number value";
-    if (price < 0) errorsObj.price = "Price must be at least 0";
+    if (!price) {
+      errorsObj.price = "Please input a price";
+    } else if (isNaN(price)) {
+      errorsObj.price = "Please input a number value";
+    } else if (parseFloat(price) < 0) {
+      errorsObj.price = "Price must be at least 0";
+    }
 
     setErrors(errorsObj);
   }, [price, title, description]);
@@ -57,7 +59,8 @@ export default function UpdateProduct({product}) {
 
     setDidSubmit(true);
     if (Object.keys(errors).length > 0) {
-      return alert("Please enter valid information to update your product");
+      return;
+      // return alert("Please enter valid information to update your product");
     }
 
     setErrors({});
@@ -82,17 +85,21 @@ export default function UpdateProduct({product}) {
     setTitle("");
     setPrice("");
 
-    if (dispatchedProduct) closeModal();
+    if (dispatchedProduct) {
+      dispatch(getOneProductThunk(product.id));
+      closeModal();
+    }
   };
 
   return (
     <div className="updatepro-wrap">
       <form className="updatepro-form" onSubmit={handleSubmit}>
-        <div>Update Your Product</div>
+        <div className="share">Update Your Product</div>
 
-        <div>
-          <label>Title</label>
+        <div className="pro-div">
+          <label className="pro-label">Title</label>
           <input
+            className="pro-input"
             type="text"
             placeholder="Name this beauty"
             value={title}
@@ -102,9 +109,10 @@ export default function UpdateProduct({product}) {
         {didSubmit && errors.title && (
           <p className="sign-err">{errors.title}</p>
         )}
-        <div>
-          <label>Description</label>
+        <div className="pro-div">
+          <label className="pro-label">Description</label>
           <textarea
+            className="des-area"
             type="text"
             placeholder="Describe this beauty"
             value={description}
@@ -114,21 +122,25 @@ export default function UpdateProduct({product}) {
         {didSubmit && errors.description && (
           <p className="sign-err">{errors.description}</p>
         )}
-        <div className="money">
-          <label>Price</label>
-          <div className="cash">$</div>
-          <input
-            className="price-input"
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            placeholder="Set a price for this beauty"
-          />
+        <div className="pro-div">
+          <label className="pro-label">Price</label>
+          <div className="money">
+            <div className="cash">$</div>
+            <input
+              className="price-input"
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              placeholder="Set a price for this beauty"
+            />
+          </div>
         </div>
         {didSubmit && errors.price && (
           <p className="sign-err">{errors.price}</p>
         )}
-        <button type="submit">Save</button>
+        <button type="submit" className="create-pro-btn">
+          Save
+        </button>
       </form>
     </div>
   );

@@ -1,0 +1,13 @@
+.name-date {
+  display: flex;
+  flex-direction: row;
+}
+
+.the-date {
+  margin-left: 5px;
+}
+
+.person-rev {
+  font-weight: bold;
+  color: rgb(156, 175, 136);
+}

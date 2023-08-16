@@ -48,3 +48,31 @@
   border: none;
   cursor: pointer;
 }
+
+.r-wrap {
+  display: flex;
+  flex-direction: row;
+  font-size: 20px;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+#rev-stars {
+  margin-left: 1rem;
+}
+
+.review-wrap {
+  padding: 2rem;
+  margin-left: 2rem;
+}
+
+.prod-edit > button {
+  border-radius: 24px;
+  background-color: rgb(156, 175, 136);
+  color: white;
+  width: 13rem;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}

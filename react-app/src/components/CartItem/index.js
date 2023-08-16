@@ -26,7 +26,8 @@ export default function CartItem({product}) {
   useEffect(() => {
     const errorsObj = {};
 
-    if (quantity < 0) errorsObj.quantity = "Quantity must be greater than 0";
+    if (quantity < 0 || quantity > 100)
+      errorsObj.quantity = "Quantity must be greater than 0 and less than 100";
     setErrors(errorsObj);
   }, [quantity]);
 
@@ -41,7 +42,8 @@ export default function CartItem({product}) {
     console.log("errors", errors);
 
     if (Object.keys(errors).length > 0) {
-      return alert("The quantity is not valid.");
+      return;
+      // return alert("The quantity is not valid.");
     }
 
     if (+quantity === 0) {
@@ -73,6 +75,7 @@ export default function CartItem({product}) {
           <div>
             <label>Quantity</label>
             <input
+              className="price-input"
               type="number"
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}

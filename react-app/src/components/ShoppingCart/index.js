@@ -39,6 +39,11 @@ export default function ShoppingCart() {
     // dispatch(loadCartThunk());
   };
 
+  // Sort the products by created_at in descending order
+  const sortedProducts = [...products].sort(
+    (a, b) => new Date(b.created_at) - new Date(a.created_at)
+  );
+
   if (products.length === 0) return null;
 
   // if (!total) total.total_price = 0;
@@ -47,13 +52,15 @@ export default function ShoppingCart() {
     <div className="cart-div">
       <div className="cart-wrap">
         <h1>Shopping Cart</h1>
-        {products.map((product) => (
+        {sortedProducts.map((product) => (
           <CartItem key={product.id} product={product} />
         ))}
       </div>
       <div className="total-box">
         <div>Total: ${fixedPrice(total?.total_price)}</div>
-        <button onClick={handleCheckout}>Proceed to checkout</button>
+        <button onClick={handleCheckout} id="proceed-ck" className="proceed-ck">
+          Proceed to checkout
+        </button>
       </div>
     </div>
   ) : (

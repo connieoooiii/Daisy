@@ -82,7 +82,10 @@ export default function UpdateProduct({product}) {
     setTitle("");
     setPrice("");
 
-    if (dispatchedProduct) closeModal();
+    if (dispatchedProduct) {
+      dispatch(getOneProductThunk(product.id));
+      closeModal();
+    }
   };
 
   return (

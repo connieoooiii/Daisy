@@ -120,3 +120,11 @@
 .cash {
   margin-right: 4px;
 }
+
+#file-up {
+  font-size: 30px;
+}
+
+.create-img-input {
+  display: none;
+}

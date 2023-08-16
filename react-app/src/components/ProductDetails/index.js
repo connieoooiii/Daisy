@@ -1,11 +1,11 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
+import {useParams, useHistory} from "react-router-dom";
 import {getOneProductThunk, getUserProductsThunk} from "../../store/products";
 
 import "./ProductDetails.css";
 import {addToCartThunk, loadCartThunk} from "../../store/carts";
-import {loadProductReviewsThunk} from "../../store/reviews";
+import {loadProductReviewsThunk, loadReviews} from "../../store/reviews";
 import OpenModalButton from "../OpenModalButton";
 import CreateReview from "../CreateReview";
 import ProductReviews from "../ProductReviews";
@@ -14,6 +14,7 @@ const fixedPrice = (price) => (+price).toFixed(2);
 
 export default function ProductDetails() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const {productId} = useParams();
 
   const product = useSelector((state) => {
@@ -69,11 +70,17 @@ export default function ProductDetails() {
   console.log(" 🍀cart item ids", cartItemsId);
 
   useEffect(() => {
+    dispatch(loadReviews([]));
+
     dispatch(getOneProductThunk(productId));
+    dispatch(loadProductReviewsThunk(productId));
     dispatch(getUserProductsThunk());
     dispatch(loadCartThunk());
-    dispatch(loadProductReviewsThunk(productId));
   }, [dispatch, productId]);
+
+  // useEffect(() => {
+  //   dispatch(loadProductReviewsThunk(productId));
+  // }, [dispatch, productId]);
 
   const addToCart = async () => {
     if (user === null) {
@@ -89,12 +96,12 @@ export default function ProductDetails() {
       } else {
         await dispatch(addToCartThunk(product.id));
         await dispatch(loadCartThunk());
-        return alert(`${product.title} has been added to your cart!`);
+        history.push("/shopping-cart");
       }
     }
   };
 
-  if (product === null) {
+  if (Object.keys(product).length === 0) {
     return <h1>Hold still while we load this amazing product bestie!</h1>;
   }
 

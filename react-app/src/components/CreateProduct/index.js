@@ -1,10 +1,11 @@
 import {useEffect, useState, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {addProductThunk} from "../../store/products";
+import {addProductThunk, getOneProductThunk} from "../../store/products";
 import {useModal} from "../../context/Modal";
 
 import "./CreateProduct.css";
+import {loadProductReviewsThunk} from "../../store/reviews";
 
 const fixedPrice = (price) => (+price).toFixed(2);
 
@@ -19,9 +20,9 @@ export default function CreateProduct() {
   const [price, setPrice] = useState("");
   const [errors, setErrors] = useState({});
   const [didSubmit, setDidSubmit] = useState(false);
-  const [photoUrl, setPhotoUrl] = useState(null);
-  const [noPicture, setNoPicture] = useState(false);
-  const uploadInput = useRef();
+  const [imgLink, setImgLink] = useState(null);
+  const [isPic, setIsPic] = useState(false);
+  const imgUpload = useRef();
 
   useEffect(() => {
     const errorsObj = {};
@@ -57,9 +58,9 @@ export default function CreateProduct() {
       const fileReader = new FileReader(); //creates a new file reader object
       fileReader.readAsDataURL(currentTarget.files[0]);
       //reads file as data URL, used to display images
-      fileReader.onload = () => setPhotoUrl(fileReader.result);
+      fileReader.onload = () => setImgLink(fileReader.result);
       //when file has been read, sets photo url to it
-      setNoPicture(false);
+      setIsPic(false);
     }
   };
 
@@ -77,14 +78,16 @@ export default function CreateProduct() {
   // };
 
   let preview = null;
-  if (photoUrl) preview = <img src={photoUrl} id="prev-img" alt="" />;
+  if (imgLink) {
+    preview = <img src={imgLink} id="prev-img" alt="product image" />;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setDidSubmit(true);
     if (Object.keys(errors).length > 0) {
-      return alert("Please enter valid information to create your product");
+      return;
     }
 
     const newPrice = fixedPrice(price);
@@ -109,6 +112,8 @@ export default function CreateProduct() {
 
     if (dispatchedProduct) {
       closeModal();
+      await dispatch(getOneProductThunk(dispatchedProduct.id));
+      await dispatch(loadProductReviewsThunk(dispatchedProduct.id));
       history.push(`/products/${dispatchedProduct.id}`);
     }
   };
@@ -129,29 +134,20 @@ export default function CreateProduct() {
           <div className="another">
             <div
               id="pic-side"
-              className={noPicture ? "no-picture" : ""}
-              onClick={() => uploadInput.current.click()}
+              className={isPic ? "no-picture" : ""}
+              onClick={() => imgUpload.current.click()}
             >
               <input
-                className="uploadButton"
-                id="image"
+                className="create-img-input"
+                ref={imgUpload}
                 type="file"
                 accept="image/png, image/jpeg, image/jpg, image/gif"
                 onChange={prevPhoto}
-                ref={uploadInput}
-                style={{display: "none"}}
               />
               {preview || (
-                <div
-                  id="upload-sign-box-text"
-                  className={noPicture ? "no-picture" : ""}
-                >
-                  <i className="fa-solid fa-upload"></i>
-                  <div>
-                    {!noPicture
-                      ? "Click to upload."
-                      : "An Image is required to create a Pin."}
-                  </div>
+                <div className={isPic ? "no-picture" : ""}>
+                  <i class="fa-solid fa-file-arrow-up" id="file-up"></i>
+                  <div>{!isPic && "Click here to upload an image!"}</div>
                 </div>
               )}
             </div>

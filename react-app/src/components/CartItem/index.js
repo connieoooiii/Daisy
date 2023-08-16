@@ -41,7 +41,8 @@ export default function CartItem({product}) {
     console.log("errors", errors);
 
     if (Object.keys(errors).length > 0) {
-      return alert("The quantity is not valid.");
+      return;
+      // return alert("The quantity is not valid.");
     }
 
     if (+quantity === 0) {
@@ -73,6 +74,7 @@ export default function CartItem({product}) {
           <div>
             <label>Quantity</label>
             <input
+              className="price-input"
               type="number"
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}

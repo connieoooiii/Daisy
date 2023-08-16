@@ -59,9 +59,7 @@ export default function CreateReview({user, productId}) {
         history.push(`/products/${productId}`);
       }
     } else {
-      return alert(
-        "A valid review includes at least 10 characters and one star."
-      );
+      return;
     }
   };
 

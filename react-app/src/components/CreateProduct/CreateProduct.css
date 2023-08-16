@@ -84,6 +84,11 @@
   border-radius: 10px;
   width: 13rem;
   height: 2rem;
+  padding: 0 5px;
+}
+
+.pro-input:focus {
+  outline: 2px solid rgb(156, 175, 136);
 }
 
 .pro-label {
@@ -95,6 +100,11 @@
   height: 7rem;
   width: 13rem;
   border: lightgray 2px solid;
+  padding: 7px;
+}
+
+.des-area:focus {
+  outline: 2px solid rgb(156, 175, 136);
 }
 
 .price-input {
@@ -102,6 +112,11 @@
   border-radius: 10px;
   width: 13rem;
   height: 2rem;
+  padding-left: 5px;
+}
+
+.price-input:focus {
+  outline: 2px solid rgb(156, 175, 136);
 }
 
 .money {

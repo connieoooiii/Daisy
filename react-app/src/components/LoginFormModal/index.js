@@ -105,7 +105,7 @@ function LoginFormModal() {
         {didSubmit && formErr.email && (
           <p className="sign-err">{formErr.email}</p>
         )}
-        {email.length < 4 && email.length > 0 && (
+        {!didSubmit && email.length < 4 && email.length > 0 && (
           <p className="sign-err">Email is required</p>
         )}
         <label className="sign-label">

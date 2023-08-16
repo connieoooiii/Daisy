@@ -181,7 +181,7 @@ export default function CreateProduct() {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-            ≈
+
             {didSubmit && errors.description && (
               <p className="sign-err">{errors.description}</p>
             )}

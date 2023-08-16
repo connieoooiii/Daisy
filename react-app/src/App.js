@@ -29,12 +29,6 @@ function App() {
           <Route exact path="/products">
             <ProductsIndex />
           </Route>
-          <Route path="/login">
-            <LoginFormPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
           <Route exact path="/shopping-cart">
             <ShoppingCart />
           </Route>

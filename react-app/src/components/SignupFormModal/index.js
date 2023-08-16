@@ -37,11 +37,11 @@ function SignupFormModal() {
     }
 
     if (!username) {
-      errorsObj.username = "Username is required";
+      errorsObj.username1 = "Username is required";
     } else {
       const userLength = username.length;
       if (userLength < 4 || userLength > 40) {
-        errorsObj.username = "Username must be between 4 and 40 characters";
+        errorsObj.username1 = "Username must be between 4 and 40 characters";
       }
     }
 
@@ -92,9 +92,9 @@ function SignupFormModal() {
           history.push("/products");
         }
       } else {
-        setErrors([
-          "Confirm Password field must be the same as the Password field",
-        ]);
+        setFormErr({
+          confirm: "Confirm Password must be the same as the Password",
+        });
       }
     }
   };
@@ -121,7 +121,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {email.length < 4 && email.length > 0 && (
+        {!didSubmit && email.length < 4 && email.length > 0 && (
           <p className="sign-err">Please input a valid email</p>
         )}
         {didSubmit && formErr.email && (
@@ -138,8 +138,16 @@ function SignupFormModal() {
             required
           />
         </label>
+        {!didSubmit && username.length < 4 && username.length > 0 && (
+          <p className="sign-err">
+            Username must be between 4 and 40 characters
+          </p>
+        )}
         {didSubmit && formErr.username && (
           <p className="sign-err">{formErr.username}</p>
+        )}
+        {didSubmit && formErr.username1 && (
+          <p className="sign-err">{formErr.username1}</p>
         )}
         {/* {username.length < 4 && username.length > 0 && (
           <p className="sign-err">Username must be at least 4 characters</p>
@@ -154,6 +162,11 @@ function SignupFormModal() {
             required
           />
         </label>
+        {!didSubmit && first_name.length < 4 && first_name.length > 0 && (
+          <p className="sign-err">
+            First name must be between 4 and 40 characters
+          </p>
+        )}
         {didSubmit && formErr.firstName && (
           <p className="sign-err">{formErr.firstName}</p>
         )}
@@ -182,6 +195,17 @@ function SignupFormModal() {
             required
           />
         </label>
+        {!didSubmit && password.length < 6 && password.length > 0 && (
+          <p className="sign-err">
+            Password must be between 6 and 50 characters
+          </p>
+        )}
+        {didSubmit && formErr.passLength && (
+          <p className="sign-err">{formErr.passLength}</p>
+        )}
+        {didSubmit && formErr.confirm && (
+          <p className="sign-err">{formErr.confirm}</p>
+        )}
         <label className="sign-label">
           Confirm Password
           <input

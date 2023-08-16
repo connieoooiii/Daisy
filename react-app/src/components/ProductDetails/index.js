@@ -155,12 +155,14 @@ export default function ProductDetails() {
           {user &&
             user?.id !== product.user_id &&
             !reviewUserIds.includes(user?.id) && (
-              <OpenModalButton
-                modalComponent={
-                  <CreateReview user={user} productId={product.id} />
-                }
-                buttonText="Post Your Review"
-              />
+              <div className="post-review">
+                <OpenModalButton
+                  modalComponent={
+                    <CreateReview user={user} productId={product.id} />
+                  }
+                  buttonText="Post Your Review"
+                />
+              </div>
             )}
         </div>
         <ProductReviews productId={product.id} reviews={reviews} user={user} />

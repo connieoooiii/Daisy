@@ -39,6 +39,11 @@ export default function ShoppingCart() {
     // dispatch(loadCartThunk());
   };
 
+  // Sort the products by created_at in descending order
+  const sortedProducts = [...products].sort(
+    (a, b) => new Date(b.created_at) - new Date(a.created_at)
+  );
+
   if (products.length === 0) return null;
 
   // if (!total) total.total_price = 0;
@@ -47,7 +52,7 @@ export default function ShoppingCart() {
     <div className="cart-div">
       <div className="cart-wrap">
         <h1>Shopping Cart</h1>
-        {products.map((product) => (
+        {sortedProducts.map((product) => (
           <CartItem key={product.id} product={product} />
         ))}
       </div>

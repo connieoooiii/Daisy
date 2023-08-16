@@ -20,15 +20,17 @@ export default function ProductReviews({productId, reviews, user}) {
 
   return (
     <div>
-      {reviews.map((review) => (
-        <div key={review.id}>
-          <div>{review.review}</div>
-          <div className="name-date">
-            <div className="person-rev">{review.creator.first_name}</div>
-            <div className="the-date">{formatDate(review.created_at)}</div>
+      {reviews
+        .map((review) => (
+          <div key={review.id}>
+            <div>{review.review}</div>
+            <div className="name-date">
+              <div className="person-rev">{review.creator.first_name}</div>
+              <div className="the-date">{formatDate(review.created_at)}</div>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+        .reverse()}
     </div>
   );
 }

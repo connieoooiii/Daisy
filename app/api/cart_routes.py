@@ -20,6 +20,8 @@ def get_cart():
             item = Product.query.get(product['product_id'])
             return_item = item.to_cart_dict()
             return_item['quantity'] = product['quantity']
+            return_item['created_at'] = product['created_at']
+            return_item['updated_at'] = product['updated_at']
             result.append(return_item)
 
         return result

@@ -54,7 +54,9 @@ export default function ShoppingCart() {
           alt="daisy"
           className="daisy-manage"
         />
-        <h2>Your shopping cart is empty!</h2>
+        <div className="create-first">
+          Your shopping cart is empty. Love it? Buy it!
+        </div>
       </div>
     );
   }

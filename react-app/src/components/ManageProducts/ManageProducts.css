@@ -50,16 +50,18 @@
   background-color: rgb(156, 175, 136);
   color: white;
   border: none;
-  width: 8rem;
+  width: 10rem;
   padding: 0.4rem;
   cursor: pointer;
   font-weight: bold;
   margin: 2rem;
+  font-size: 17px;
 }
 
 .create-first {
   font-weight: 700;
   font-size: 30px;
+  margin-left: 1rem;
 }
 
 .manage-wrap > img {

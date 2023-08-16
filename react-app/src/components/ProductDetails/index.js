@@ -8,6 +8,7 @@ import {addToCartThunk, loadCartThunk} from "../../store/carts";
 import {loadProductReviewsThunk} from "../../store/reviews";
 import OpenModalButton from "../OpenModalButton";
 import CreateReview from "../CreateReview";
+import ProductReviews from "../ProductReviews";
 
 const fixedPrice = (price) => (+price).toFixed(2);
 
@@ -116,13 +117,28 @@ export default function ProductDetails() {
           Add to cart
         </button>
       </div>
-      <div className="p-rev">
-        {user.id !== product.user_id && !reviewUserIds.includes(user.id) && (
-          <OpenModalButton
-            modalComponent={<CreateReview user={user} productId={product.id} />}
-            buttonText="Post Your Review"
-          />
-        )}
+      <div className="review-wrap">
+        <div className="r-wrap">
+          <div>
+            {reviews.length === 0 ? "New" : ""}
+            {reviews.length === 1 ? <span>{reviews.length} Review</span> : ""}
+            {reviews.length > 1 ? <span>{reviews.length} Reviews</span> : ""}
+          </div>
+          <div>
+            <i className="fa-solid fa-star" id="rev-stars"></i>
+          </div>
+        </div>
+        <div className="p-rev">
+          {user.id !== product.user_id && !reviewUserIds.includes(user.id) && (
+            <OpenModalButton
+              modalComponent={
+                <CreateReview user={user} productId={product.id} />
+              }
+              buttonText="Post Your Review"
+            />
+          )}
+        </div>
+        <ProductReviews productId={product.id} reviews={reviews} user={user} />
       </div>
     </div>
   );

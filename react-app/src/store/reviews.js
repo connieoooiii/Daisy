@@ -41,15 +41,19 @@ export const updateReview = (review) => ({
 
 /** Thunk Action Creators: */
 export const loadProductReviewsThunk = (productId) => async (dispatch) => {
-  const res = await fetch(`/api/products/${productId}/reviews`);
-
-  if (res.ok) {
-    const reviews = await res.json();
-    dispatch(loadReviews(reviews));
-    return reviews;
-  } else {
-    const errors = await res.json();
-    return errors;
+  console.log("I AM BEFORE RES LOAD REVIEWS");
+  try {
+    const res = await fetch(`/api/products/${productId}/reviews`);
+    if (res.ok) {
+      const reviews = await res.json();
+      dispatch(loadReviews(reviews));
+      return reviews;
+    } else {
+      const errors = await res.json();
+      return errors;
+    }
+  } catch (err) {
+    return err;
   }
 };
 

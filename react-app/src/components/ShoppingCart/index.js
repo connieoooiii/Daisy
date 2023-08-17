@@ -78,23 +78,27 @@ export default function ShoppingCart() {
 
   return (
     user && (
-      <div className="cart-div">
-        <div className="cart-wrap">
-          <h1>Shopping Cart</h1>
-          {products &&
-            sortedProducts.map((product) => (
-              <CartItem key={product.id} product={product} />
-            ))}
-        </div>
-        <div className="total-box">
-          <div>Total: ${fixedPrice(total?.total_price)}</div>
-          <button
-            onClick={handleCheckout}
-            id="proceed-ck"
-            className="proceed-ck"
-          >
-            Proceed to checkout
-          </button>
+      <div className="cart-page">
+        <div className="cart-div">
+          <div className="shop-cart">Shopping Cart</div>
+          <div className="cart-wrap">
+            {products &&
+              sortedProducts.map((product) => (
+                <CartItem key={product.id} product={product} />
+              ))}
+          </div>
+          <div className="total-box">
+            <div className="total-amount">
+              Total: ${fixedPrice(total?.total_price)}
+            </div>
+            <button
+              onClick={handleCheckout}
+              id="proceed-ck"
+              className="proceed-ck"
+            >
+              Proceed to checkout
+            </button>
+          </div>
         </div>
       </div>
     )

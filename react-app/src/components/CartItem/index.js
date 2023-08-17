@@ -17,7 +17,7 @@ const fixedPrice = (price) => (+price).toFixed(2);
 
 export default function CartItem({product}) {
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(product?.quantity);
   const [didSubmit, setDidSubmit] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -31,9 +31,9 @@ export default function CartItem({product}) {
     setErrors(errorsObj);
   }, [quantity]);
 
-  useEffect(() => {
-    setQuantity(product.quantity);
-  }, [product.quantity]);
+  // useEffect(() => {
+  //   setQuantity(product.quantity);
+  // }, [product.quantity]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,43 +58,48 @@ export default function CartItem({product}) {
     }
   };
   return (
-    <div>
-      <div>
-        <Link to={`/products/${product.id}`}>
-          <img
-            src={product?.image}
-            className="cartpro-img"
-            alt="product image"
-          />
-          <div>{product.title}</div>
-        </Link>
-
-        <div>${fixedPrice(product.quantity * product.price)}</div>
-        <div>(${fixedPrice(product.price)} each)</div>
-        <form onSubmit={handleSubmit} className="quant-div">
-          <div>
-            <label>Quantity</label>
-            <input
-              className="price-input"
-              type="number"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
+    <div className="border-bottom">
+      <div className="cart-item-wrap">
+        <div className="item-link">
+          <Link to={`/products/${product.id}`}>
+            <img
+              src={product?.image}
+              className="cartpro-img"
+              alt="product image"
             />
-          </div>
-          {didSubmit && errors.quantity && (
-            <p className="sign-err">{errors.quantity}</p>
-          )}
-          <button type="submit" className="save-quant">
-            Save
-          </button>
-        </form>
-      </div>
+            <div>{product.title}</div>
+          </Link>
 
-      <div className="delpro-wrap">
-        <OpenModalButton
-          modalComponent={<RemoveCartItem product={product} />}
-          buttonText="Remove"
-        />
+          <div>${fixedPrice(product.quantity * product.price)}</div>
+          <div>(${fixedPrice(product.price)} each)</div>
+          <form onSubmit={handleSubmit} className="quant-div">
+            <div>
+              <label className="quant-label">Quantity</label>
+              <input
+                className="quant-input"
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+              />
+            </div>
+
+            <button type="submit" className="save-quant">
+              Save
+            </button>
+          </form>
+          {didSubmit && errors.quantity && (
+            <p className="sign-err" id="quant-err">
+              {errors.quantity}
+            </p>
+          )}
+        </div>
+
+        <div className="delpro-wrap">
+          <OpenModalButton
+            modalComponent={<RemoveCartItem product={product} />}
+            buttonText="Remove"
+          />
+        </div>
       </div>
     </div>
   );

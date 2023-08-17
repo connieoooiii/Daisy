@@ -106,6 +106,37 @@ export default function ProductDetails() {
     }
   };
 
+  function renderStarIcons(avgStars) {
+    const fullStars = Math.floor(avgStars);
+    const halfStars = Math.ceil(avgStars - fullStars);
+
+    const starIcons = [];
+
+    for (let i = 0; i < fullStars; i++) {
+      starIcons.push(
+        <i
+          key={`full-star-${i}`}
+          className="fa-sharp fa-solid fa-star"
+          id="avg-stars"
+        ></i>
+      );
+    }
+
+    if (halfStars > 0) {
+      starIcons.push(
+        <i
+          key="half-star"
+          className="fa-sharp fa-solid fa-star-half"
+          id="avg-stars"
+        ></i>
+      );
+    }
+
+    return starIcons;
+  }
+
+  const stars = renderStarIcons(product.avg_stars);
+
   if (Object.keys(product).length === 0) {
     return <h1>Hold still while we load this amazing product bestie!</h1>;
   }
@@ -142,14 +173,12 @@ export default function ProductDetails() {
       </div>
       <div className="review-wrap">
         <div className="r-wrap">
-          <div>
+          <div className="num-rev">
             {reviews.length === 0 ? "New" : ""}
             {reviews.length === 1 ? <span>{reviews.length} Review</span> : ""}
             {reviews.length > 1 ? <span>{reviews.length} Reviews</span> : ""}
           </div>
-          <div>
-            <i className="fa-solid fa-star" id="rev-stars"></i>
-          </div>
+          <div>{stars}</div>
         </div>
         <div className="p-rev">
           {user &&

@@ -21,11 +21,33 @@ export default function ProductReviews({productId, reviews, user}) {
     return `${month} ${day}, ${year}`;
   }
 
+  function renderStarIcons(avgStars) {
+    const fullStars = Math.floor(avgStars);
+    const halfStars = Math.ceil(avgStars - fullStars);
+
+    const starIcons = [];
+
+    for (let i = 0; i < fullStars; i++) {
+      starIcons.push(
+        <i key={`full-star-${i}`} className="fa-sharp fa-solid fa-star"></i>
+      );
+    }
+
+    if (halfStars > 0) {
+      starIcons.push(
+        <i key="half-star" className="fa-sharp fa-solid fa-star-half"></i>
+      );
+    }
+
+    return starIcons;
+  }
+
   return (
     <div>
       {reviews
         .map((review) => (
           <div key={review.id}>
+            <div>{renderStarIcons(review.stars)}</div>
             <div>{review.review}</div>
             <div className="name-date">
               <div className="person-rev">{review.creator.first_name}</div>

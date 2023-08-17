@@ -18,13 +18,17 @@ export default function ManageProducts() {
     return Object.values(state.products.allProducts);
   });
 
+  const user = useSelector((state) => {
+    return state.session.user;
+  });
+
   console.log("PRODUCTS 👁️", products);
 
   useEffect(() => {
     dispatch(getUserProductsThunk());
   }, [dispatch]);
 
-  if (products.length < 1) {
+  if (user && products.length < 1) {
     return (
       <div className="manage-wrap">
         <img
@@ -40,6 +44,21 @@ export default function ManageProducts() {
               buttonText="Create A Product"
             />
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="manage-wrap">
+        <img
+          src="https://cdn.discordapp.com/attachments/1138505164358164483/1141497587921330276/daisy-.jpeg"
+          alt="daisy"
+          className="daisy-manage"
+        />
+        <div className="create-first">
+          Please log in to manage your products!
         </div>
       </div>
     );

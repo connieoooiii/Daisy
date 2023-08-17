@@ -37,15 +37,15 @@ export default function CreateProduct() {
       errorsObj.title = "Title must be between 5 and 65 characters";
     }
 
-    if (description.length > 1000)
-      errorsObj.description = "Description must be 1000 characters or less";
+    if (description.length > 500)
+      errorsObj.description = "Description must be 500 characters or less";
 
     if (!price) {
       errorsObj.price = "Please input a price";
     } else if (isNaN(price)) {
       errorsObj.price = "Please input a number value";
-    } else if (parseFloat(price) < 0) {
-      errorsObj.price = "Price must be at least 0";
+    } else if (parseFloat(price) < 0 || parseFloat(price) > 200) {
+      errorsObj.price = "Price must be between 0 and $200";
     }
 
     setErrors(errorsObj);

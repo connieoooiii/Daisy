@@ -16,20 +16,20 @@ export default function UpdateProduct({product}) {
   const user_id = useSelector((state) => state.session.user.id);
 
   const [image, setImage] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+  const [title, setTitle] = useState(product?.title);
+  const [description, setDescription] = useState(product?.description);
+  const [price, setPrice] = useState(fixedPrice(product?.price));
   const [errors, setErrors] = useState({});
   const [didSubmit, setDidSubmit] = useState(false);
 
-  useEffect(() => {
-    dispatch(getOneProductThunk(product.id)).then((product) => {
-      setDescription(product.description);
-      // setImage(product.image);
-      setPrice(product.price);
-      setTitle(product.title);
-    });
-  }, [dispatch, product.id]);
+  // useEffect(() => {
+  //   dispatch(getOneProductThunk(product.id)).then((product) => {
+  //     setDescription(product.description);
+  //     // setImage(product.image);
+  //     setPrice(fixedPrice(product.price));
+  //     setTitle(product.title);
+  //   });
+  // }, [dispatch, product.id]);
 
   useEffect(() => {
     const errorsObj = {};
@@ -47,8 +47,8 @@ export default function UpdateProduct({product}) {
       errorsObj.price = "Please input a price";
     } else if (isNaN(price)) {
       errorsObj.price = "Please input a number value";
-    } else if (parseFloat(price) < 0) {
-      errorsObj.price = "Price must be at least 0";
+    } else if (parseFloat(price) < 0 || parseFloat(price) > 200) {
+      errorsObj.price = "Price must be between 0 and $200";
     }
 
     setErrors(errorsObj);

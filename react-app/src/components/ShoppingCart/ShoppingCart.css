@@ -1,31 +1,48 @@
-.cart-wrap {
-  display: flex;
-  flex-direction: column;
+/* .cart-page {
+  position: relative;
+} */
+
+.shop-cart {
+  font-weight: 700;
+  font-size: 30px;
+  /* margin-bottom: 2rem; */
 }
 
 .cart-div {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  margin-left: 5rem;
 }
 
 .total-box {
-  /* border: 1px solid red; */
-  width: 10rem;
   height: 15rem;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
+  margin-top: 3rem;
+  margin-right: 3rem;
 }
+
+.total-amount {
+  margin-right: 1rem;
+  font-size: 18px;
+  margin-bottom: 1rem;
+}
+
+/* .total-word {
+  margin-right: 7rem;
+} */
 
 #proceed-ck {
   border-radius: 24px;
   background-color: rgb(156, 175, 136);
   color: white;
   border: none;
-  width: 10rem;
-  padding: 0.4rem;
+  width: 15rem;
+  padding: 1rem;
   cursor: pointer;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 17px;
   margin-top: 0.4rem;
 }

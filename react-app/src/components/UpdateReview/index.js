@@ -68,6 +68,7 @@ export default function UpdateReview({oldReview, productId, user}) {
 
       if (dispatchedReview.id) {
         await dispatch(loadProductReviewsThunk(productId));
+        await dispatch(getOneProductThunk(productId));
         closeModal();
       }
     } else {

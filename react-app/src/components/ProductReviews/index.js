@@ -5,11 +5,20 @@ import DeleteReview from "../DeleteReview";
 import UpdateReview from "../UpdateReview";
 
 import "./ProductReviews.css";
+import {loadProductReviewsThunk} from "../../store/reviews";
 
-export default function ProductReviews({productId, reviews, user}) {
+export default function ProductReviews({productId, user, review}) {
   const dispatch = useDispatch();
 
-  console.log("REVIEWS 🤡", reviews);
+  // const reviews = useSelector((state) => {
+  //   return Object.values(state.reviews.allReviews);
+  // });
+
+  console.log("REVIEW 🐳 in the product reviews comp", review);
+
+  // useEffect(() => {
+  //   loadProductReviewsThunk(productId);
+  // });
 
   function formatDate(dateString) {
     const date = new Date(dateString);
@@ -42,16 +51,67 @@ export default function ProductReviews({productId, reviews, user}) {
     return starIcons;
   }
 
+  if (!review) {
+    return (
+      <div className="manage-wrap">
+        <img
+          src="https://cdn.discordapp.com/attachments/1138505164358164483/1141497587921330276/daisy-.jpeg"
+          alt="daisy"
+          className="daisy-manage"
+        />
+        <div className="create-first">Getting product reviews!</div>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      {reviews
+    <div className="review-card">
+      <div>{renderStarIcons(review.stars)}</div>
+      <div>{review.review}</div>
+      <div className="name-date">
+        <div className="person-rev">{review?.creator.first_name}</div>
+        <div className="the-date">
+          {review && formatDate(review.created_at)}
+        </div>
+      </div>
+      {user && review.user_id === user.id && (
+        <div className="my-reviews">
+          <div className="my-del">
+            <OpenModalButton
+              modalComponent={
+                <DeleteReview reviewId={review.id} productId={productId} />
+              }
+              buttonText="Delete Review"
+            />
+          </div>
+          <div className="my-del">
+            <OpenModalButton
+              modalComponent={
+                <UpdateReview
+                  oldReview={review}
+                  productId={productId}
+                  user={user}
+                />
+              }
+              buttonText="Update Review"
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* {reviews
         .map((review) => (
           <div key={review.id}>
             <div>{renderStarIcons(review.stars)}</div>
             <div>{review.review}</div>
             <div className="name-date">
-              <div className="person-rev">{review.creator.first_name}</div>
-              <div className="the-date">{formatDate(review.created_at)}</div>
+              <div className="person-rev">{review?.creator.first_name}</div>
+              <div className="the-date">
+                {review && formatDate(review.created_at)}
+              </div>
             </div>
             {review.user_id === user.id && (
               <div className="my-reviews">
@@ -82,7 +142,4 @@ export default function ProductReviews({productId, reviews, user}) {
             )}
           </div>
         ))
-        .reverse()}
-    </div>
-  );
-}
+        .reverse()} */

@@ -62,8 +62,7 @@
 }
 
 .review-wrap {
-  padding: 2rem;
-  margin-left: 2rem;
+  margin-top: 2rem;
 }
 
 .prod-edit > button {
@@ -81,14 +80,25 @@
   border-radius: 24px;
   background-color: rgb(156, 175, 136);
   color: white;
-  width: 8rem;
+  width: 12rem;
   padding: 0.5rem;
   border: none;
   cursor: pointer;
   font-weight: bold;
+  font-size: 17px;
   margin: 1rem 0;
+  margin-left: 0.5rem;
 }
 
 .num-rev {
   margin-right: 1rem;
 }
+
+.befirst {
+  width: 20rem;
+  margin-right: 1rem;
+}
+
+/* .the-reviews {
+
+} */

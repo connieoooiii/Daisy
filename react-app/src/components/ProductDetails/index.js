@@ -135,7 +135,7 @@ export default function ProductDetails() {
     return starIcons;
   }
 
-  const stars = renderStarIcons(product.avg_stars);
+  const stars = renderStarIcons(product?.avg_stars);
 
   if (Object.keys(product).length === 0) {
     return <h1>Hold still while we load this amazing product bestie!</h1>;
@@ -143,11 +143,11 @@ export default function ProductDetails() {
 
   return (
     <div className="details-wrap">
-      <img src={product.image} className="details-img" />
+      <img src={product?.image} className="details-img" />
       <div className="details-info">
-        <div className="d-title">{product.title}</div>
+        <div className="d-title">{product?.title}</div>
         {product && <div className="d-price">${fixedPrice(product.price)}</div>}
-        <div className="d-des">{product.description}</div>
+        <div className="d-des">{product?.description}</div>
         <div className="des-seller">
           <img
             src="https://cdn.discordapp.com/attachments/1138505164358164483/1138930197878550679/daisy.png"
@@ -171,30 +171,51 @@ export default function ProductDetails() {
           </div>
         )}
       </div>
-      <div className="review-wrap">
-        <div className="r-wrap">
-          <div className="num-rev">
-            {reviews.length === 0 ? "New" : ""}
-            {reviews.length === 1 ? <span>{reviews.length} Review</span> : ""}
-            {reviews.length > 1 ? <span>{reviews.length} Reviews</span> : ""}
+      <div className="the-reviews">
+        <div className="review-wrap">
+          <div className="r-wrap">
+            <div className="num-rev">
+              {reviews.length === 0 ? (
+                <div className="befirst">
+                  Be the first to review this product!
+                </div>
+              ) : (
+                ""
+              )}
+              {reviews.length === 1 ? (
+                <div className="one-rev">{reviews.length} Review</div>
+              ) : (
+                ""
+              )}
+              {reviews.length > 1 ? <div>{reviews.length} Reviews</div> : ""}
+            </div>
+            <div>{stars}</div>
           </div>
-          <div>{stars}</div>
+          <div className="p-rev">
+            {user &&
+              user?.id !== product.user_id &&
+              !reviewUserIds.includes(user?.id) && (
+                <div className="post-review">
+                  <OpenModalButton
+                    modalComponent={
+                      <CreateReview user={user} productId={product.id} />
+                    }
+                    buttonText="Post Your Review"
+                  />
+                </div>
+              )}
+          </div>
+          <div>
+            {reviews.map((review) => (
+              <ProductReviews
+                key={review.id}
+                productId={product.id}
+                user={user}
+                review={review}
+              />
+            ))}
+          </div>
         </div>
-        <div className="p-rev">
-          {user &&
-            user?.id !== product.user_id &&
-            !reviewUserIds.includes(user?.id) && (
-              <div className="post-review">
-                <OpenModalButton
-                  modalComponent={
-                    <CreateReview user={user} productId={product.id} />
-                  }
-                  buttonText="Post Your Review"
-                />
-              </div>
-            )}
-        </div>
-        <ProductReviews productId={product.id} reviews={reviews} user={user} />
       </div>
     </div>
   );

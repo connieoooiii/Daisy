@@ -35,9 +35,9 @@ function App() {
           <Route exact path="/products/manage">
             <ManageProducts />
           </Route>
-          <Route exact path="/products/new">
+          {/* <Route exact path="/products/new">
             <CreateProduct />
-          </Route>
+          </Route> */}
           <Route exact path="/products/:productId">
             <ProductDetails />
           </Route>

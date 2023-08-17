@@ -65,39 +65,41 @@ export default function ProductReviews({productId, user, review}) {
   }
 
   return (
-    <div className="review-card">
-      <div>{renderStarIcons(review.stars)}</div>
-      <div>{review.review}</div>
-      <div className="name-date">
-        <div className="person-rev">{review?.creator.first_name}</div>
-        <div className="the-date">
-          {review && formatDate(review.created_at)}
+    <div className="review-container">
+      <div className="review-card">
+        <div>{renderStarIcons(review.stars)}</div>
+        <div className="rev-text">{review.review}</div>
+        <div className="name-date">
+          <div className="person-rev">{review?.creator.first_name}</div>
+          <div className="the-date">
+            {review && formatDate(review.created_at)}
+          </div>
         </div>
+        {user && review.user_id === user.id && (
+          <div className="my-reviews">
+            <div className="my-del">
+              <OpenModalButton
+                modalComponent={
+                  <DeleteReview reviewId={review.id} productId={productId} />
+                }
+                buttonText="Delete Review"
+              />
+            </div>
+            <div className="my-del">
+              <OpenModalButton
+                modalComponent={
+                  <UpdateReview
+                    oldReview={review}
+                    productId={productId}
+                    user={user}
+                  />
+                }
+                buttonText="Update Review"
+              />
+            </div>
+          </div>
+        )}
       </div>
-      {user && review.user_id === user.id && (
-        <div className="my-reviews">
-          <div className="my-del">
-            <OpenModalButton
-              modalComponent={
-                <DeleteReview reviewId={review.id} productId={productId} />
-              }
-              buttonText="Delete Review"
-            />
-          </div>
-          <div className="my-del">
-            <OpenModalButton
-              modalComponent={
-                <UpdateReview
-                  oldReview={review}
-                  productId={productId}
-                  user={user}
-                />
-              }
-              buttonText="Update Review"
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 }

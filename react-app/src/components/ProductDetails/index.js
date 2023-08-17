@@ -211,14 +211,16 @@ export default function ProductDetails() {
               )}
           </div>
           <div>
-            {reviews.map((review) => (
-              <ProductReviews
-                key={review.id}
-                productId={product.id}
-                user={user}
-                review={review}
-              />
-            ))}
+            {reviews
+              .map((review) => (
+                <ProductReviews
+                  key={review.id}
+                  productId={product.id}
+                  user={user}
+                  review={review}
+                />
+              ))
+              .reverse()}
           </div>
         </div>
       </div>

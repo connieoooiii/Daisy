@@ -175,7 +175,10 @@ export default function ProductDetails() {
         <div className="review-wrap">
           <div className="r-wrap">
             <div className="num-rev">
-              {reviews.length === 0 ? (
+              {!user && reviews.length === 0 && (
+                <div className="befirst">No reviews yet</div>
+              )}
+              {user && reviews.length === 0 ? (
                 <div className="befirst">
                   Be the first to review this product!
                 </div>

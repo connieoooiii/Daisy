@@ -7,6 +7,21 @@ from .auth_routes import validation_errors_to_error_messages
 review_routes = Blueprint('reviews', __name__)
 
 
+
+@review_routes.route('/<int:reviewId>')
+@login_required
+def get_one_review(reviewId):
+    review = Review.query.get(reviewId)
+
+    if not review:
+        return jsonify({"error": "Review for this product wasn't found"}), 404
+
+    return review.to_dict()
+
+
+
+
+
 @review_routes.route('/<int:reviewId>', methods=["PUT"])
 @login_required
 def update_review(reviewId):

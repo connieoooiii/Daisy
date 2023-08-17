@@ -39,7 +39,7 @@ export default function ProductDetails() {
   });
 
   const reviews = useSelector((state) => {
-    return Object.values(state.reviews);
+    return Object.values(state.reviews.allReviews);
   });
 
   console.log("USER", user);

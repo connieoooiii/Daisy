@@ -46,7 +46,13 @@ export default function ProductReviews({productId, reviews, user}) {
                 </div>
                 <div className="my-del">
                   <OpenModalButton
-                    modalComponent={<UpdateReview review={review} />}
+                    modalComponent={
+                      <UpdateReview
+                        oldReview={review}
+                        productId={productId}
+                        user={user}
+                      />
+                    }
                     buttonText="Update Review"
                   />
                 </div>

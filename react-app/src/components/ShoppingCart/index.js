@@ -46,7 +46,7 @@ export default function ShoppingCart() {
     (a, b) => new Date(b.created_at) - new Date(a.created_at)
   );
 
-  if (products.length === 0) {
+  if (user && products.length === 0) {
     return (
       <div className="manage-wrap">
         <img
@@ -61,25 +61,42 @@ export default function ShoppingCart() {
     );
   }
 
-  // if (!total) total.total_price = 0;
+  if (!user) {
+    return (
+      <div className="manage-wrap">
+        <img
+          src="https://cdn.discordapp.com/attachments/1138505164358164483/1141497587921330276/daisy-.jpeg"
+          alt="daisy"
+          className="daisy-manage"
+        />
+        <div className="create-first">
+          Please log in to view your shopping cart!
+        </div>
+      </div>
+    );
+  }
 
-  return user ? (
-    <div className="cart-div">
-      <div className="cart-wrap">
-        <h1>Shopping Cart</h1>
-        {products &&
-          sortedProducts.map((product) => (
-            <CartItem key={product.id} product={product} />
-          ))}
+  return (
+    user && (
+      <div className="cart-div">
+        <div className="cart-wrap">
+          <h1>Shopping Cart</h1>
+          {products &&
+            sortedProducts.map((product) => (
+              <CartItem key={product.id} product={product} />
+            ))}
+        </div>
+        <div className="total-box">
+          <div>Total: ${fixedPrice(total?.total_price)}</div>
+          <button
+            onClick={handleCheckout}
+            id="proceed-ck"
+            className="proceed-ck"
+          >
+            Proceed to checkout
+          </button>
+        </div>
       </div>
-      <div className="total-box">
-        <div>Total: ${fixedPrice(total?.total_price)}</div>
-        <button onClick={handleCheckout} id="proceed-ck" className="proceed-ck">
-          Proceed to checkout
-        </button>
-      </div>
-    </div>
-  ) : (
-    <div>Please log in!</div>
+    )
   );
 }

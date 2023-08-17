@@ -178,7 +178,9 @@ export default function ProductDetails() {
               {!user && reviews.length === 0 && (
                 <div className="befirst">No reviews yet</div>
               )}
-              {user && reviews.length === 0 ? (
+              {user &&
+              reviews.length === 0 &&
+              !userProductsId.includes(product.id) ? (
                 <div className="befirst">
                   Be the first to review this product!
                 </div>

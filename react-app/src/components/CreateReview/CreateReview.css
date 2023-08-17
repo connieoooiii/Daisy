@@ -63,8 +63,12 @@
   background-color: white;
   height: 5rem;
   width: 14rem;
-  border: 2px solid black;
+  border: 2px solid lightgray;
   padding: 5px;
+}
+
+.leave-rev:focus {
+  outline: 2px solid rgb(156, 175, 136);
 }
 
 .i-stars {

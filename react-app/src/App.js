@@ -12,6 +12,7 @@ import CreateProduct from "./components/CreateProduct";
 import ShoppingCart from "./components/ShoppingCart";
 import LandingPage from "./components/LandingPage";
 import Loadingpage from "./components/LoadingPage";
+import ThankYou from "./components/ThankYou";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,9 @@ function App() {
           <Route exact path="/shopping-cart">
             <ShoppingCart />
           </Route>
+          <Route exact path="/thank-you">
+            <ThankYou />
+          </Route>
           <Route exact path="/products/manage">
             <ManageProducts />
           </Route>
@@ -42,9 +46,6 @@ function App() {
           </Route> */}
           <Route exact path="/products/:productId">
             <ProductDetails />
-          </Route>
-          <Route exact path="/loading">
-            <Loadingpage />
           </Route>
         </Switch>
       )}

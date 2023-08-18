@@ -14,7 +14,8 @@ export default function LandingPage() {
           <div className="hello-again">
             <div className="welcome-back">Welcome back, {user.first_name}!</div>
             <img
-              src="https://cdn.discordapp.com/attachments/1138505164358164483/1141877895581679636/skincaresteps.png"
+              //   src="https://cdn.discordapp.com/attachments/1138505164358164483/1141877895581679636/skincaresteps.png"
+              src="https://cdn.discordapp.com/attachments/1138505164358164483/1142125491826995230/Screenshot_2023-08-18_at_8.58.28_AM.png"
               alt="skincare steps"
               className="skincare-steps"
             />

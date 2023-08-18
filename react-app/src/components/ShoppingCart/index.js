@@ -1,5 +1,6 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
 import {
   cartTotalThunk,
   deleteAllCartThunk,
@@ -7,6 +8,7 @@ import {
   loadCartThunk,
 } from "../../store/carts";
 import CartItem from "../CartItem";
+import LandingPage from "../LandingPage";
 
 import "./ShoppingCart.css";
 
@@ -14,6 +16,8 @@ const fixedPrice = (price) => (+price).toFixed(2);
 
 export default function ShoppingCart() {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const products = useSelector((state) => {
     return Object.values(state.carts.cartProducts);
   });
@@ -38,7 +42,8 @@ export default function ShoppingCart() {
 
   const handleCheckout = async () => {
     await dispatch(deleteAllCartThunk(products));
-    // dispatch(loadCartThunk());
+
+    history.push("/thank-you");
   };
 
   // Sort the products by created_at in descending order
@@ -63,16 +68,17 @@ export default function ShoppingCart() {
 
   if (!user) {
     return (
-      <div className="manage-wrap">
-        <img
-          src="https://cdn.discordapp.com/attachments/1138505164358164483/1141497587921330276/daisy-.jpeg"
-          alt="daisy"
-          className="daisy-manage"
-        />
-        <div className="create-first">
-          Please log in to view your shopping cart!
-        </div>
-      </div>
+      <LandingPage />
+      // <div className="manage-wrap">
+      //   <img
+      //     src="https://cdn.discordapp.com/attachments/1138505164358164483/1141497587921330276/daisy-.jpeg"
+      //     alt="daisy"
+      //     className="daisy-manage"
+      //   />
+      //   <div className="create-first">
+      //     Please log in to view your shopping cart!
+      //   </div>
+      // </div>
     );
   }
 

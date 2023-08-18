@@ -1,0 +1,29 @@
+.pg-not {
+  position: relative;
+  height: 70rem;
+  width: 100%;
+  background-image: url("https://cdn.discordapp.com/attachments/1138505164358164483/1142185696115835001/Soko-Glam.png");
+  background-size: contain;
+  background-position: center;
+}
+
+.bummer {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 50rem;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  font-size: 40px;
+  border-radius: 24px;
+  font-size: bold;
+}
+
+#sad {
+  margin-left: 1rem;
+}

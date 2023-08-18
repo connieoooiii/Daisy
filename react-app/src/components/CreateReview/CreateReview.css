@@ -89,3 +89,7 @@
   flex-direction: column;
   align-items: center;
 }
+
+#err-stars {
+  margin-left: 7px;
+}

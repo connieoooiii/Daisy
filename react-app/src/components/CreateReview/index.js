@@ -83,9 +83,7 @@ export default function CreateReview({user, productId}) {
           />
         </div>
         {review.length > 0 && review.length < 10 && (
-          <div className="sign-err">
-            Must be at least 10 characters & one star!
-          </div>
+          <div className="sign-err" id="err-stars">Include 10 characters & one star!</div>
         )}
 
         <div className="text-btn">

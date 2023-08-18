@@ -96,8 +96,8 @@ export default function UpdateReview({oldReview, productId, user}) {
           />
         </div>
         {review.length > 0 && review.length < 10 && (
-          <div className="sign-err">
-            Must be at least 10 characters & one star!
+          <div className="sign-err" id="err-stars">
+            Include min 10 characters & 1 star!
           </div>
         )}
 

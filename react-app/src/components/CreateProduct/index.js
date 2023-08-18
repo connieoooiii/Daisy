@@ -119,7 +119,7 @@ export default function CreateProduct() {
   };
 
   return (
-    <div>
+    <div className="create-product-div">
       <form
         onSubmit={handleSubmit}
         encType="multipart/form-data"

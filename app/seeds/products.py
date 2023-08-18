@@ -108,6 +108,62 @@ def seed_products():
             'image': 'https://cdn.discordapp.com/attachments/1138505164358164483/1138573971546193980/AESTURA_Atobarrier_365_Cream.webp' ,
             'price': 31
         },
+         { #product 16
+            'user_id': 7,
+            'title':'Round Lab 1025 Dokdo Cleanser',
+            'description': "Slightly acidic (pH 5.0 - 6.0), foamy and creamy cleanser purifies and removes excess sebum without over-drying. It clears away impurities and helps the skin maintain a healthy moisture balance.",
+            'image': 'https://cdn.discordapp.com/attachments/1138505164358164483/1141863159716646952/round-lab-cleanser.webp' ,
+            'price': 15
+        },
+        { #product 17
+            'user_id': 2,
+            'title':'Beauty of Joseon Dynasty Cream',
+            'description': "Meet the 'Dynasty Cream,' our very first product here at Beauty of Joseon, and a long-time favorite of many of our customers. Its firm and creamy texture gives your skin deep, long-lasting moisture and nourishment. This all-in-one cream is filled with good-for-skin ingredients like rice bran water, ginseng water, squalane, and niacinamide.",
+            'image': 'https://cdn.discordapp.com/attachments/1138505164358164483/1141863160140267521/boj-cream.png' ,
+            'price': 24
+        },
+        { #product 18
+            'user_id': 2,
+            'title':'Anua Peach 70% Niacinamide Serum',
+            'description': "Anua Peach 70% Niacinamide Serum is a facial serum that delivers glass skin instantly and over time. This peach serum helps brighten dull skin with soft texture care.",
+            'image': 'https://cdn.discordapp.com/attachments/1138505164358164483/1141863160496791735/anua-peach-.png' ,
+            'price': 25
+        },
+         { #product 19
+            'user_id': 3,
+            'title':'Round Lab Pine Calming Cica Cream',
+            'description': "Cream packed with deep hydration and moisture, providing instant refresh upon application.",
+            'image': 'https://cdn.discordapp.com/attachments/1138505164358164483/1141866131007750214/pine-calming-cica-cream-round-lab-1.png' ,
+            'price': 25
+        },
+         { #product 20
+            'user_id': 5,
+            'title':'Torriden Solid In Ceramide Cream',
+            'description': "Rich, thick and buttery: there is no better cream for dry, dehydrated or mature skin than the Solid In Ceramide Cream by Torriden. With ceramides and jojoba seed oil to strengthen the moisture barrier and to provide a burst of hydration. Green tea extract is added to work as a powerful antioxidant with anti-inflammatory abilities.",
+            'image': 'https://cdn.discordapp.com/attachments/1138505164358164483/1141866461455995021/torridencream.png' ,
+            'price': 27
+        },
+        { #product 21
+            'user_id': 5,
+            'title':'Anua Heartleaf Silky Moisture Sun Cream',
+            'description': "The sun cream uses chemical filters to offer broad-spectrum sun protection of SPF 50+ PA++++. Organic sunscreen provides soothing and hydrating skin benefits with ingredients like houttuynia cordata extract and panthenol.",
+            'image': 'https://cdn.discordapp.com/attachments/1138505164358164483/1141863160928800819/anua-sun.png' ,
+            'price': 22.50
+        },
+        { #product 22
+            'user_id': 6,
+            'title':'Rom&nd Glasting Water Tint',
+            'description': "These unique tints by rom&nd offer a rich color payoff with a glossy layer. The non-sticky 'water' layer is separated from the color layer that tints the lips. Unlike other glosses, the subtle colors of these tints will stay on your lips hours after wear.",
+            'image': 'https://cdn.discordapp.com/attachments/1138505164358164483/1141863161260146718/romandlip.png' ,
+            'price': 22.50
+        },
+        { #product 23
+            'user_id': 7,
+            'title':'Round Lab Soybean Nourishing Serum',
+            'description': "Firm and liven up with 7 types of Vitamin B extracted from Soymilk. Glow from the inside out with this deeply nourishing serum.",
+            'image': 'https://cdn.discordapp.com/attachments/1138505164358164483/1141869141922418829/orangeroundlab.png' ,
+            'price': 31
+        },
     ]
     seed_products = [db.session.add(Product(**product)) for product in products]
     db.session.commit()

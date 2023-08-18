@@ -56,7 +56,7 @@ function LoginFormModal() {
         setFormErr(errorsObj);
       } else {
         closeModal();
-        history.push("/products");
+        history.push("/");
         return null;
       }
     }
@@ -75,7 +75,7 @@ function LoginFormModal() {
 
     setErrors([]);
     closeModal();
-    history.push("/products");
+    history.push("/");
   };
 
   return (

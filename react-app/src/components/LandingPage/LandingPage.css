@@ -1,0 +1,53 @@
+/* .larger-div {
+  background-color: rgb(255, 250, 202);
+} */
+
+.land-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.land-imgs {
+  display: flex;
+  flex-direction: row;
+}
+
+.circle-imgs {
+  height: 8rem;
+  width: 8rem;
+  /* margin-left: 4rem; */
+  border-radius: 50%;
+}
+
+.land-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 4rem;
+  margin-bottom: 3rem;
+  cursor: pointer;
+}
+
+.discover {
+  margin-bottom: 3rem;
+  font-size: 30px;
+  color: rgba(137, 133, 133, 0.838);
+}
+
+.welcome-back {
+  font-size: 30px;
+  color: rgba(137, 133, 133, 0.838);
+}
+
+.hello-again {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.skincare-steps {
+  height: 25rem;
+  /* cursor: pointer; */
+}

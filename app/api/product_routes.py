@@ -17,8 +17,10 @@ def get_all_products():
 
     for product in products:
 
-        avg_stars = db.session.query(func.avg(Review.stars)).filter(Review.product_id == product.id).scalar() #query to find avg stars for reviews associated with product
-
+        avg_stars = db.session.query(func.avg(Review.stars)).filter(Review.product_id == product.id).scalar()
+        #Review.query for simple queries, for more complex agreg func need db.session
+        #func.avg is SQL alc func that gets avg
+        #scalar returns single scalar value instead of an object
         if not avg_stars:
             avg_stars = 0
         avg_stars = round(avg_stars, 2)

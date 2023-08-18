@@ -11,6 +11,7 @@ import ManageProducts from "./components/ManageProducts";
 import CreateProduct from "./components/CreateProduct";
 import ShoppingCart from "./components/ShoppingCart";
 import LandingPage from "./components/LandingPage";
+import Loadingpage from "./components/LoadingPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,9 @@ function App() {
           </Route> */}
           <Route exact path="/products/:productId">
             <ProductDetails />
+          </Route>
+          <Route exact path="/loading">
+            <Loadingpage />
           </Route>
         </Switch>
       )}

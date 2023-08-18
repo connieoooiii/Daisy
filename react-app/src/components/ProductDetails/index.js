@@ -14,6 +14,7 @@ import OpenModalButton from "../OpenModalButton";
 import CreateReview from "../CreateReview";
 import ProductReviews from "../ProductReviews";
 import UpdateProduct from "../UpdateProduct";
+import Loadingpage from "../LoadingPage";
 
 const fixedPrice = (price) => (+price).toFixed(2);
 
@@ -138,7 +139,7 @@ export default function ProductDetails() {
   const stars = renderStarIcons(product?.avg_stars);
 
   if (Object.keys(product).length === 0) {
-    return <h1>Hold still while we load this amazing product bestie!</h1>;
+    return <Loadingpage />;
   }
 
   return (

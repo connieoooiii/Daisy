@@ -38,6 +38,7 @@
 .welcome-back {
   font-size: 30px;
   color: rgba(137, 133, 133, 0.838);
+  margin-bottom: 1.5rem;
 }
 
 .hello-again {
@@ -48,6 +49,9 @@
 }
 
 .skincare-steps {
-  height: 25rem;
+  /* height: 25rem; */
+  border-radius: 24px;
   /* cursor: pointer; */
+  /* width: 80rem; */
+  width: 75%;
 }

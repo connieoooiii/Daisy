@@ -98,12 +98,6 @@ def seed_reviews():
         review="Literally this is my favorite moisturizer at the moment! 😍"
     )
 
-    review15= Review (
-        user_id=4,
-        product_id=1,
-        stars= 5,
-        review="Literally this is my favorite sun screen at the moment! 😍"
-    )
 
     review16= Review (
         user_id=3,
@@ -265,12 +259,7 @@ def seed_reviews():
         review="Use it just once a day. it can dry out your skin. I use it just in mornings and in evenings i use more hydrating face wash and that’s seems to work for me.the smell is really strong- medical"
     )
 
-    review38= Review (
-        user_id=6,
-        product_id=1,
-        stars= 4,
-        review="There is an initial whitecast when you first apply it but it disappears quickly. As a person with dark skin I experienced zero lingering whitecast. It leaves a bit of a glow without greasiness."
-    )
+
     review39= Review (
         user_id=6,
         product_id=1,
@@ -333,12 +322,6 @@ def seed_reviews():
         review="I love anything with soybean in it. This one helps with hyperpigmentations."
     )
 
-    review48= Review (
-        user_id=5,
-        product_id=23,
-        stars= 4.5,
-        review="I was looking for something with a lot of ceramides to help with retinol recovery and this is IT. It was 5 different ceramides very high on the ingredients list and made a huge difference. Very good for moisture barrier."
-    )
 
     review49= Review (
         user_id=2,
@@ -347,12 +330,7 @@ def seed_reviews():
         review="I wanted to love this serum since it has a lovely texture. Unfortunately, I didn't notice much of a difference on my skin, and it felt a bit tacky after application which I am not a fan of."
     )
 
-    review50= Review (
-        user_id=6,
-        product_id=23,
-        stars= 5,
-        review="I love this serum at night time!!! It doesn't get oily or plug pores. Moisturizing!"
-    )
+
 
 
     db.session.add(review1)
@@ -369,7 +347,6 @@ def seed_reviews():
     db.session.add(review12)
     db.session.add(review13)
     db.session.add(review14)
-    db.session.add(review15)
     db.session.add(review16)
     db.session.add(review17)
     db.session.add(review19)
@@ -391,7 +368,6 @@ def seed_reviews():
     db.session.add(review35)
     db.session.add(review36)
     db.session.add(review37)
-    db.session.add(review38)
     db.session.add(review39)
     db.session.add(review40)
     db.session.add(review41)
@@ -401,9 +377,7 @@ def seed_reviews():
     db.session.add(review45)
     db.session.add(review46)
     db.session.add(review47)
-    db.session.add(review48)
     db.session.add(review49)
-    db.session.add(review50)
 
 
     db.session.commit()

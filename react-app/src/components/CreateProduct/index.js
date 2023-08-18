@@ -44,8 +44,8 @@ export default function CreateProduct() {
       errorsObj.price = "Please input a price";
     } else if (isNaN(price)) {
       errorsObj.price = "Please input a number value";
-    } else if (parseFloat(price) < 0 || parseFloat(price) > 200) {
-      errorsObj.price = "Price must be between 0 and $200";
+    } else if (parseFloat(price) < 0.01 || parseFloat(price) > 200) {
+      errorsObj.price = "Price must be between $0.01 and $200";
     }
 
     setErrors(errorsObj);

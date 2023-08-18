@@ -89,7 +89,7 @@ function SignupFormModal() {
           setFormErr(flattenedData);
         } else {
           closeModal();
-          history.push("/products");
+          history.push("/");
         }
       } else {
         setFormErr({

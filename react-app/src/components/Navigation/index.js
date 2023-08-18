@@ -24,13 +24,13 @@ function Navigation({isLoaded}) {
     <ul className="nav-bar">
       <li className="list">
         <div className="cloud-nav">
-          <NavLink exact to="/products">
+          <NavLink exact to="/">
             <img
               className="daisy-logo"
               src="https://cdn.discordapp.com/attachments/1138505164358164483/1138930197878550679/daisy.png"
             />
           </NavLink>
-          <NavLink exact to="/products" className="logo">
+          <NavLink exact to="/" className="logo">
             Daisy
           </NavLink>
         </div>

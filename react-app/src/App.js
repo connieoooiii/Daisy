@@ -10,6 +10,7 @@ import ProductDetails from "./components/ProductDetails";
 import ManageProducts from "./components/ManageProducts";
 import CreateProduct from "./components/CreateProduct";
 import ShoppingCart from "./components/ShoppingCart";
+import LandingPage from "./components/LandingPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/">
-            <ProductsIndex />
+            <LandingPage />
           </Route>
           <Route exact path="/products">
             <ProductsIndex />

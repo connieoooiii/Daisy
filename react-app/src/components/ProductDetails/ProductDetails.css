@@ -7,8 +7,9 @@
 }
 
 .details-img {
-  height: 90%;
-  width: 25rem;
+  height: 29rem;
+  /* width: 25rem; */
+  /* width: 90%; */
   object-fit: cover;
   border-radius: 10%;
   /* border: 1px solid red; */

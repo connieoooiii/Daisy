@@ -19,6 +19,8 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const [formErr, setFormErr] = useState({});
+  const [visible1, setVisible1] = useState(false);
+  const [visible2, setVisible2] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
   const {closeModal} = useModal();
 
@@ -192,11 +194,18 @@ function SignupFormModal() {
           Password
           <input
             className="sign-input"
-            type="password"
+            type={visible1 ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <div onClick={() => setVisible1(!visible1)} className="pwicon1">
+            {visible1 ? (
+              <i className="fa-regular fa-eye"></i>
+            ) : (
+              <i className="fa-regular fa-eye-slash"></i>
+            )}
+          </div>
         </label>
         {!didSubmit && password.length < 6 && password.length > 0 && (
           <p className="sign-err">
@@ -213,11 +222,18 @@ function SignupFormModal() {
           Confirm Password
           <input
             className="sign-input"
-            type="password"
+            type={visible2 ? "text" : "password"}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
+          <div onClick={() => setVisible2(!visible2)} className="pwicon1">
+            {visible2 ? (
+              <i className="fa-regular fa-eye"></i>
+            ) : (
+              <i className="fa-regular fa-eye-slash"></i>
+            )}
+          </div>
         </label>
         <button
           //   className={`continue-btn ${disabled ? "inactive" : ""}`}

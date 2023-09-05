@@ -78,11 +78,11 @@
   cursor: pointer;
 }
 
-/* .pwicon1 {
+.pwicon1 {
   position: absolute;
-  top: 60%;
+  top: 70%;
   right: 0;
-  left: 16rem;
+  left: 190px;
   transform: translateY(-50%);
   cursor: pointer;
-} */
+}

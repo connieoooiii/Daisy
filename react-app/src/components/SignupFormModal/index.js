@@ -66,6 +66,9 @@ function SignupFormModal() {
     if (password.length < 6 || password.length > 51)
       errorsObj.passLength = "Password must be between 6 and 50 characters";
 
+    if (password !== confirmPassword)
+      errorsObj.confirm = "Confirm Password must be the same as the Password";
+
     setFormErr(errorsObj);
   }, [email, username, password, first_name, last_name]);
 
@@ -74,28 +77,28 @@ function SignupFormModal() {
     setDidSubmit(true);
 
     if (Object.keys(formErr).length === 0) {
-      if (password === confirmPassword) {
-        setFormErr({});
-        const data = await dispatch(
-          signUp(email.toLowerCase(), username, first_name, last_name, password)
-        );
-        if (data) {
-          console.log("🍀 data", data);
-          const flattenedData = {};
-          data.forEach((item) => {
-            const [key, value] = item.split(" : ");
-            flattenedData[key.trim()] = value.trim();
-          });
-          setFormErr(flattenedData);
-        } else {
-          closeModal();
-          history.push("/");
-        }
-      } else {
-        setFormErr({
-          confirm: "Confirm Password must be the same as the Password",
+      // if (password === confirmPassword) {
+      setFormErr({});
+      const data = await dispatch(
+        signUp(email.toLowerCase(), username, first_name, last_name, password)
+      );
+      if (data) {
+        console.log("🍀 data", data);
+        const flattenedData = {};
+        data.forEach((item) => {
+          const [key, value] = item.split(" : ");
+          flattenedData[key.trim()] = value.trim();
         });
+        setFormErr(flattenedData);
+      } else {
+        closeModal();
+        history.push("/");
       }
+      // } else {
+      //   setFormErr({
+      //     confirm: "Confirm Password must be the same as the Password",
+      //   });
+      // }
     }
   };
 

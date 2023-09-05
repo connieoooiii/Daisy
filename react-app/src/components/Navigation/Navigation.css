@@ -109,6 +109,7 @@
   color: rgb(156, 175, 136);
   font-size: 15px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .profile-wrap {

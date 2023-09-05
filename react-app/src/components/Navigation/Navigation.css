@@ -86,7 +86,7 @@
   resize: none;
   align-self: stretch;
   border: none;
-  cursor: pointer;
+  cursor: text;
   box-sizing: content-box;
 }
 

@@ -3,6 +3,7 @@
   height: 18rem;
   object-fit: cover;
   border-radius: 25px;
+  box-shadow: 0 0 20px lightgray;
 }
 
 .sell-img {
@@ -25,7 +26,9 @@
 .card-wrap {
   margin: 1rem;
   object-fit: cover;
-  /* border: 1px solid red; */
+
+  padding: 1rem;
+  /* border-radius: 24px; */
 }
 
 .card-wrap > a {

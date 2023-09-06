@@ -11,6 +11,8 @@ export const ADD_PRODUCT = "products/ADD_PRODUCT";
 
 export const UPDATE_PRODUCT = "products/UPDATE_PRODUCT";
 
+const SEARCH_PRODUCTS = "products/SEARCH_PRODUCT";
+
 /**  Action Creators: */
 export const loadAllProducts = (products) => ({
   type: LOAD_ALL_PRODUCTS,
@@ -42,6 +44,11 @@ export const updateProduct = (product) => ({
   product,
 });
 
+export const searchProducts = (products) => ({
+  type: SEARCH_PRODUCTS,
+  products,
+});
+
 /** Thunk Action Creators: */
 export const getAllProductsThunk = () => async (dispatch) => {
   const res = await fetch("/api/products");
@@ -49,6 +56,19 @@ export const getAllProductsThunk = () => async (dispatch) => {
     const products = await res.json();
     console.log("products type:", products);
     dispatch(loadAllProducts(products));
+  } else {
+    const errors = await res.json();
+    console.log(errors);
+    return errors;
+  }
+};
+
+export const getSearchedProductsThunk = (search) => async (dispatch) => {
+  const res = await fetch(`/api/products/${search}`);
+  if (res.ok) {
+    const products = await res.json();
+    console.log("products search", products);
+    dispatch(searchProducts(products));
   } else {
     const errors = await res.json();
     console.log(errors);
@@ -147,7 +167,7 @@ export const updateProductThunk = (product) => async (dispatch) => {
 };
 
 /** Products Reducer: */
-const initialState = {allProducts: {}, singleProduct: {}};
+const initialState = {allProducts: {}, singleProduct: {}, searchProducts: {}};
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -160,6 +180,7 @@ const productReducer = (state = initialState, action) => {
         ...state,
         allProducts: newState,
         singleProduct: {},
+        searchProducts: {},
       };
     }
     case LOAD_ONE_PRODUCT: {
@@ -203,6 +224,16 @@ const productReducer = (state = initialState, action) => {
           ...state.allProducts,
           [action.product.id]: action.product,
         },
+      };
+    }
+    case SEARCH_PRODUCTS: {
+      const newState = {};
+      action.products.forEach((product) => {
+        newState[product.id] = product;
+      });
+      return {
+        ...state,
+        searchProducts: newState,
       };
     }
     default:

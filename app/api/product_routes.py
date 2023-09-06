@@ -34,6 +34,12 @@ def get_all_products():
 
     return product_list
 
+#search for product
+@product_routes.route('/<search>')
+def getSearchProduct(search):
+    products = Product.query.filter(Product.title.ilike(f"%{search}%"))
+    return [product.to_dict() for product in products]
+
 
 #create a product route
 @product_routes.route('', methods=["POST"])

@@ -14,6 +14,7 @@ import LandingPage from "./components/LandingPage";
 import Loadingpage from "./components/LoadingPage";
 import ThankYou from "./components/ThankYou";
 import PageNotFound from "./components/PageNotFound";
+import Search from "./components/Search";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,9 +43,9 @@ function App() {
           <Route exact path="/products/manage">
             <ManageProducts />
           </Route>
-          {/* <Route exact path="/products/new">
-            <CreateProduct />
-          </Route> */}
+          <Route exact path="/products/search">
+            <Search />
+          </Route>
           <Route exact path="/products/:productId">
             <ProductDetails />
           </Route>

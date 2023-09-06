@@ -1,19 +1,27 @@
 import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import ProfileButton from "./ProfileButton";
 
 import "./Navigation.css";
+import {getSearchedProductsThunk} from "../../store/products";
+import {useHistory} from "react-router-dom";
 
 function Navigation({isLoaded}) {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
 
   const [searchText, setSearchText] = useState("");
 
-  const handleSearch = () => {
-    alert("Feature coming soon!");
+  const handleSearch = async (e) => {
+    if (e) {
+      e.preventDefault();
+    }
+    await dispatch(getSearchedProductsThunk(searchText));
+    history.push("/products/search");
+    setSearchText("");
   };
-
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       handleSearch();

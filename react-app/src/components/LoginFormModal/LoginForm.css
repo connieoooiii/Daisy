@@ -68,3 +68,21 @@
   cursor: pointer;
   color: rgb(156, 175, 136);
 }
+
+.pwicon {
+  position: absolute;
+  top: 70%;
+  right: 0;
+  left: 190px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.pwicon1 {
+  position: absolute;
+  top: 70%;
+  right: 0;
+  left: 190px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

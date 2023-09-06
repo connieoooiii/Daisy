@@ -15,6 +15,7 @@ function LoginFormModal() {
   const [errors, setErrors] = useState([]);
   const [formErr, setFormErr] = useState({});
   const [didSubmit, setDidSubmit] = useState(false);
+  const [visible1, setVisible1] = useState(false);
   const {closeModal} = useModal();
 
   useEffect(() => {
@@ -112,10 +113,17 @@ function LoginFormModal() {
           Password
           <input
             className="sign-input"
-            type="password"
+            type={visible1 ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <div onClick={() => setVisible1(!visible1)} className="pwicon">
+            {visible1 ? (
+              <i className="fa-regular fa-eye"></i>
+            ) : (
+              <i className="fa-regular fa-eye-slash"></i>
+            )}
+          </div>
         </label>
         {password.length < 6 && password.length > 0 && (
           <p className="sign-err">Password is required</p>

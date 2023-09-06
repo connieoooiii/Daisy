@@ -18,9 +18,10 @@ def get_all_products():
     for product in products:
 
         avg_stars = db.session.query(func.avg(Review.stars)).filter(Review.product_id == product.id).scalar()
-        #Review.query for simple queries, for more complex agreg func need db.session
+         #Review.query for simple queries, for more complex agreg func need db.session
         #func.avg is SQL alc func that gets avg
         #scalar returns single scalar value instead of an object
+
         if not avg_stars:
             avg_stars = 0
         avg_stars = round(avg_stars, 2)
@@ -32,6 +33,12 @@ def get_all_products():
         product_list.append(product_dict)
 
     return product_list
+
+#search for product
+@product_routes.route('/<search>')
+def getSearchProduct(search):
+    products = Product.query.filter(Product.title.ilike(f"%{search}%"))
+    return [product.to_dict() for product in products]
 
 
 #create a product route
@@ -84,7 +91,7 @@ def get_product_reviews(productId):
     reviews = Review.query.filter_by(product_id = productId).order_by(Review.created_at.desc()).all()
 
     if not reviews:
-        return jsonify({"erorr": "No reviews found"}), 404
+        return jsonify({"error": "No reviews found"}), 404
     else:
         return [review.to_dict() for review in reviews]
 

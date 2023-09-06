@@ -19,6 +19,8 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const [formErr, setFormErr] = useState({});
+  const [visible1, setVisible1] = useState(false);
+  const [visible2, setVisible2] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
   const {closeModal} = useModal();
 
@@ -66,6 +68,9 @@ function SignupFormModal() {
     if (password.length < 6 || password.length > 51)
       errorsObj.passLength = "Password must be between 6 and 50 characters";
 
+    if (password !== confirmPassword)
+      errorsObj.confirm = "Confirm Password must be the same as the Password";
+
     setFormErr(errorsObj);
   }, [email, username, password, first_name, last_name]);
 
@@ -74,28 +79,28 @@ function SignupFormModal() {
     setDidSubmit(true);
 
     if (Object.keys(formErr).length === 0) {
-      if (password === confirmPassword) {
-        setFormErr({});
-        const data = await dispatch(
-          signUp(email.toLowerCase(), username, first_name, last_name, password)
-        );
-        if (data) {
-          console.log("🍀 data", data);
-          const flattenedData = {};
-          data.forEach((item) => {
-            const [key, value] = item.split(" : ");
-            flattenedData[key.trim()] = value.trim();
-          });
-          setFormErr(flattenedData);
-        } else {
-          closeModal();
-          history.push("/");
-        }
-      } else {
-        setFormErr({
-          confirm: "Confirm Password must be the same as the Password",
+      // if (password === confirmPassword) {
+      setFormErr({});
+      const data = await dispatch(
+        signUp(email.toLowerCase(), username, first_name, last_name, password)
+      );
+      if (data) {
+        console.log("🍀 data", data);
+        const flattenedData = {};
+        data.forEach((item) => {
+          const [key, value] = item.split(" : ");
+          flattenedData[key.trim()] = value.trim();
         });
+        setFormErr(flattenedData);
+      } else {
+        closeModal();
+        history.push("/");
       }
+      // } else {
+      //   setFormErr({
+      //     confirm: "Confirm Password must be the same as the Password",
+      //   });
+      // }
     }
   };
 
@@ -189,11 +194,18 @@ function SignupFormModal() {
           Password
           <input
             className="sign-input"
-            type="password"
+            type={visible1 ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <div onClick={() => setVisible1(!visible1)} className="pwicon1">
+            {visible1 ? (
+              <i className="fa-regular fa-eye"></i>
+            ) : (
+              <i className="fa-regular fa-eye-slash"></i>
+            )}
+          </div>
         </label>
         {!didSubmit && password.length < 6 && password.length > 0 && (
           <p className="sign-err">
@@ -210,11 +222,18 @@ function SignupFormModal() {
           Confirm Password
           <input
             className="sign-input"
-            type="password"
+            type={visible2 ? "text" : "password"}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
+          <div onClick={() => setVisible2(!visible2)} className="pwicon1">
+            {visible2 ? (
+              <i className="fa-regular fa-eye"></i>
+            ) : (
+              <i className="fa-regular fa-eye-slash"></i>
+            )}
+          </div>
         </label>
         <button
           //   className={`continue-btn ${disabled ? "inactive" : ""}`}

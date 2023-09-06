@@ -47,7 +47,7 @@ function Navigation({isLoaded}) {
         <i className="fas fa-search" onClick={handleSearch}></i>
         <input
           className="search-input"
-          placeholder="Search our amazing products"
+          placeholder="Search our amazing products. Example 'sun'"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           onKeyPress={handleKeyPress}

@@ -1,11 +1,22 @@
 import {useSelector, useDispatch} from "react-redux";
+import {useEffect} from "react";
+import {getSearchedProductsThunk} from "../../store/products";
+import ProductCard from "../ProductCard";
 
 export default function Cleansers() {
   const dispatch = useDispatch();
-  useEffect(() => {});
+
+  const products = useSelector((state) => {
+    return Object.values(state.products.searchProducts);
+  });
+  useEffect(() => {
+    dispatch(getSearchedProductsThunk("clean"));
+  });
   return (
-    <div>
-      <div>cleansers</div>
+    <div className="product-card-wrap">
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
     </div>
   );
 }

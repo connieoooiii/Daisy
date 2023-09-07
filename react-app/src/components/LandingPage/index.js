@@ -4,9 +4,17 @@ import "./LandingPage.css";
 import "../ProductsIndex";
 import ProductsIndex from "../ProductsIndex";
 import Footer from "../Footer";
+import {useHistory} from "react-router-dom/cjs/react-router-dom.min";
 
 export default function LandingPage() {
+  const history = useHistory();
   const user = useSelector((state) => state.session.user);
+
+  const handleCleanser = () => {
+    console.log("handlecleanser clicked");
+    history.push("/products/cleansers");
+  };
+
   return (
     <div className="larger-div">
       <div className="land-wrap">
@@ -24,7 +32,7 @@ export default function LandingPage() {
 
         <div className="discover">Discover fresh finds all year round! </div>
         <div className="land-imgs">
-          <div className="land-div">
+          <div className="land-div" onClick={handleCleanser}>
             <img
               src="https://cdn.discordapp.com/attachments/1138505164358164483/1141863159716646952/round-lab-cleanser.webp"
               alt="cleanser"

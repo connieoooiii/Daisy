@@ -74,73 +74,73 @@ function SignupFormModal() {
   //   setFormErr(errorsObj);
   // }, [email, username, password, first_name, last_name]);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setDidSubmit(true);
-
-  //   // if (Object.keys(formErr).length === 0) {
-  //   if (password === confirmPassword) {
-  //     // setFormErr({});
-  //     const data = await dispatch(
-  //       signUp(email.toLowerCase(), username, first_name, last_name, password)
-  //     );
-  //     if (data) {
-  //       console.log("🍀 data", data);
-  //       const flattenedData = {};
-  //       data.forEach((item) => {
-  //         const [key, value] = item.split(" : ");
-  //         flattenedData[key.trim()] = value.trim();
-  //       });
-  //       setFormErr(flattenedData);
-  //     } else {
-  //       closeModal();
-  //       history.push("/");
-  //     }
-  //     // } else {
-  //     //   setFormErr({
-  //     //     confirm: "Confirm Password must be the same as the Password",
-  //     //   });
-  //     // }
-  //   } else {
-  //     setFormErr({confirm: "Confirm Password must be the same as password"});
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setDidSubmit(true);
 
-    const newFormErr = {}; // Create a new object to store form errors
-
-    // Check if passwords match
-    if (password !== confirmPassword) {
-      newFormErr.confirm = "Confirm Password must be the same as password";
-    }
-
-    // Check if there are other form errors
-    const data = await dispatch(
-      signUp(email.toLowerCase(), username, first_name, last_name, password)
-    );
-
-    if (data) {
-      console.log("🍀 data", data);
-      const flattenedData = {};
-      data.forEach((item) => {
-        const [key, value] = item.split(" : ");
-        flattenedData[key.trim()] = value.trim();
-      });
-
-      // Merge the confirm password error with other form errors, if any
-      const mergedFormErr = {...flattenedData, ...newFormErr};
-      setFormErr(mergedFormErr);
+    // if (Object.keys(formErr).length === 0) {
+    if (password === confirmPassword) {
+      // setFormErr({});
+      const data = await dispatch(
+        signUp(email.toLowerCase(), username, first_name, last_name, password)
+      );
+      if (data) {
+        console.log("🍀 data", data);
+        const flattenedData = {};
+        data.forEach((item) => {
+          const [key, value] = item.split(" : ");
+          flattenedData[key.trim()] = value.trim();
+        });
+        setFormErr(flattenedData);
+      } else {
+        closeModal();
+        history.push("/");
+      }
+      // } else {
+      //   setFormErr({
+      //     confirm: "Confirm Password must be the same as the Password",
+      //   });
+      // }
     } else {
-      // If there are no data errors, set the confirm password error (if it exists)
-      setFormErr(newFormErr);
-
-      closeModal();
-      history.push("/");
+      setFormErr({confirm: "Confirm Password must be the same as password"});
     }
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setDidSubmit(true);
+
+  //   const newFormErr = {}; // Create a new object to store form errors
+
+  //   // Check if passwords match
+  //   if (password !== confirmPassword) {
+  //     newFormErr.confirm = "Confirm Password must be the same as password";
+  //   }
+
+  //   // Check if there are other form errors
+  //   const data = await dispatch(
+  //     signUp(email.toLowerCase(), username, first_name, last_name, password)
+  //   );
+
+  //   if (data) {
+  //     console.log("🍀 data", data);
+  //     const flattenedData = {};
+  //     data.forEach((item) => {
+  //       const [key, value] = item.split(" : ");
+  //       flattenedData[key.trim()] = value.trim();
+  //     });
+
+  //     // Merge the confirm password error with other form errors, if any
+  //     const mergedFormErr = {...flattenedData, ...newFormErr};
+  //     setFormErr(mergedFormErr);
+  //   } else {
+  //     // If there are no data errors, set the confirm password error (if it exists)
+  //     setFormErr(newFormErr);
+
+  //     closeModal();
+  //     history.push("/");
+  //   }
+  // };
 
   return (
     <div className="sign-wrap">

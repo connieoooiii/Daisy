@@ -2,6 +2,7 @@ import {useSelector, useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {getSearchedProductsThunk} from "../../store/products";
 import ProductCard from "../ProductCard";
+import Loadingpage from "../LoadingPage";
 
 export default function Cleansers() {
   const dispatch = useDispatch();
@@ -12,6 +13,10 @@ export default function Cleansers() {
   useEffect(() => {
     dispatch(getSearchedProductsThunk("clean"));
   });
+
+  if (Object.keys(products).length === 0) {
+    return <Loadingpage />;
+  }
   return (
     <div className="product-card-wrap">
       {products.map((product) => (

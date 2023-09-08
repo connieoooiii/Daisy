@@ -15,6 +15,11 @@ import Loadingpage from "./components/LoadingPage";
 import ThankYou from "./components/ThankYou";
 import PageNotFound from "./components/PageNotFound";
 import Search from "./components/Search";
+import Cleansers from "./components/Cleansers";
+import Moisterizers from "./components/Moisterizers";
+import Serums from "./components/Serums";
+import SunCare from "./components/Suncare";
+import Makeup from "./components/Makeup";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +50,21 @@ function App() {
           </Route>
           <Route exact path="/products/search">
             <Search />
+          </Route>
+          <Route exact path="/products/cleansers">
+            <Cleansers />
+          </Route>
+          <Route exact path="/products/moisterizers">
+            <Moisterizers />
+          </Route>
+          <Route exact path="/products/serums">
+            <Serums />
+          </Route>
+          <Route exact path="/products/suncare">
+            <SunCare />
+          </Route>
+          <Route exact path="/products/makeup">
+            <Makeup />
           </Route>
           <Route exact path="/products/:productId">
             <ProductDetails />

@@ -4,9 +4,32 @@ import "./LandingPage.css";
 import "../ProductsIndex";
 import ProductsIndex from "../ProductsIndex";
 import Footer from "../Footer";
+import {useHistory} from "react-router-dom/cjs/react-router-dom.min";
 
 export default function LandingPage() {
+  const history = useHistory();
   const user = useSelector((state) => state.session.user);
+
+  const handleCleanser = () => {
+    history.push("/products/cleansers");
+  };
+
+  const handleCream = () => {
+    history.push("/products/moisterizers");
+  };
+
+  const handleSerum = () => {
+    history.push("/products/serums");
+  };
+
+  const handleSun = () => {
+    history.push("/products/suncare");
+  };
+
+  const handleMakeup = () => {
+    history.push("/products/makeup");
+  };
+
   return (
     <div className="larger-div">
       <div className="land-wrap">
@@ -24,7 +47,7 @@ export default function LandingPage() {
 
         <div className="discover">Discover fresh finds all year round! </div>
         <div className="land-imgs">
-          <div className="land-div">
+          <div className="land-div" onClick={handleCleanser}>
             <img
               src="https://cdn.discordapp.com/attachments/1138505164358164483/1141863159716646952/round-lab-cleanser.webp"
               alt="cleanser"
@@ -32,7 +55,7 @@ export default function LandingPage() {
             />
             <div className="name-circle">Cleansers</div>
           </div>
-          <div className="land-div">
+          <div className="land-div" onClick={handleCream}>
             <img
               src="https://cdn.discordapp.com/attachments/1138505164358164483/1141866461455995021/torridencream.png"
               alt="moisterizer"
@@ -40,7 +63,7 @@ export default function LandingPage() {
             />
             <div className="name-circle">Moisterizers</div>
           </div>
-          <div className="land-div">
+          <div className="land-div" onClick={handleSerum}>
             <img
               src="https://cdn.discordapp.com/attachments/1138505164358164483/1141869141922418829/orangeroundlab.png"
               alt="serum"
@@ -48,7 +71,7 @@ export default function LandingPage() {
             />
             <div className="name-circle">Serums</div>
           </div>
-          <div className="land-div">
+          <div className="land-div" onClick={handleSun}>
             <img
               src="https://cdn.discordapp.com/attachments/1138505164358164483/1141863160928800819/anua-sun.png"
               alt="suncare"
@@ -56,7 +79,7 @@ export default function LandingPage() {
             />
             <div className="name-circle">Suncare</div>
           </div>
-          <div className="land-div">
+          <div className="land-div" onClick={handleMakeup}>
             <img
               src="https://cdn.discordapp.com/attachments/1138505164358164483/1141863161260146718/romandlip.png"
               alt="makeup"

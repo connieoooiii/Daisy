@@ -24,87 +24,123 @@ function SignupFormModal() {
   const [didSubmit, setDidSubmit] = useState(false);
   const {closeModal} = useModal();
 
-  useEffect(() => {
-    const errorsObj = {};
+  // useEffect(() => {
+  //   const errorsObj = {};
 
-    if (!password) errorsObj.password = "Password is required";
+  //   if (!password) errorsObj.password = "Password is required";
 
-    if (!email) {
-      errorsObj.email = "Email is required";
-    } else {
-      const emailLength = email.length;
-      if (emailLength < 4 || emailLength > 40) {
-        errorsObj.email = "Email must be between 4 and 40 characters";
-      }
-    }
+  //   if (!email) {
+  //     errorsObj.email = "Email is required";
+  //   } else {
+  //     const emailLength = email.length;
+  //     if (emailLength < 4 || emailLength > 40) {
+  //       errorsObj.email = "Email must be between 4 and 40 characters";
+  //     }
+  //   }
 
-    if (!username) {
-      errorsObj.username1 = "Username is required";
-    } else {
-      const userLength = username.length;
-      if (userLength < 4 || userLength > 40) {
-        errorsObj.username1 = "Username must be between 4 and 40 characters";
-      }
-    }
+  //   if (!username) {
+  //     errorsObj.username1 = "Username is required";
+  //   } else {
+  //     const userLength = username.length;
+  //     if (userLength < 4 || userLength > 40) {
+  //       errorsObj.username1 = "Username must be between 4 and 40 characters";
+  //     }
+  //   }
 
-    if (!first_name) {
-      errorsObj.firstName = "First name is required";
-    } else {
-      const userLength = first_name.length;
-      if (userLength < 4 || userLength > 40) {
-        errorsObj.firstName = "First name must be between 4 and 40 characters";
-      }
-    }
+  //   if (!first_name) {
+  //     errorsObj.firstName = "First name is required";
+  //   } else {
+  //     const userLength = first_name.length;
+  //     if (userLength < 4 || userLength > 40) {
+  //       errorsObj.firstName = "First name must be between 4 and 40 characters";
+  //     }
+  //   }
 
-    if (last_name.length > 40)
-      errorsObj.lastName = "Last name must be no more than 40 characters";
+  //   if (last_name.length > 40)
+  //     errorsObj.lastName = "Last name must be no more than 40 characters";
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailRegex.test(email)) {
-      errorsObj.email = "Please enter a valid email address";
-    }
+  //   if (!emailRegex.test(email)) {
+  //     errorsObj.email = "Please enter a valid email address";
+  //   }
 
-    if (password.length < 6 || password.length > 51)
-      errorsObj.passLength = "Password must be between 6 and 50 characters";
+  //   if (password.length < 6 || password.length > 51)
+  //     errorsObj.passLength = "Password must be between 6 and 50 characters";
 
-    if (password !== confirmPassword)
-      errorsObj.confirm = "Confirm Password must be the same as the Password";
+  //   if (password !== confirmPassword)
+  //     errorsObj.confirm = "Confirm Password must be the same as the Password";
 
-    setFormErr(errorsObj);
-  }, [email, username, password, first_name, last_name]);
+  //   setFormErr(errorsObj);
+  // }, [email, username, password, first_name, last_name]);
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setDidSubmit(true);
+
+  //   // if (Object.keys(formErr).length === 0) {
+  //   if (password === confirmPassword) {
+  //     // setFormErr({});
+  //     const data = await dispatch(
+  //       signUp(email.toLowerCase(), username, first_name, last_name, password)
+  //     );
+  //     if (data) {
+  //       console.log("🍀 data", data);
+  //       const flattenedData = {};
+  //       data.forEach((item) => {
+  //         const [key, value] = item.split(" : ");
+  //         flattenedData[key.trim()] = value.trim();
+  //       });
+  //       setFormErr(flattenedData);
+  //     } else {
+  //       closeModal();
+  //       history.push("/");
+  //     }
+  //     // } else {
+  //     //   setFormErr({
+  //     //     confirm: "Confirm Password must be the same as the Password",
+  //     //   });
+  //     // }
+  //   } else {
+  //     setFormErr({confirm: "Confirm Password must be the same as password"});
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setDidSubmit(true);
 
-    if (Object.keys(formErr).length === 0) {
-      // if (password === confirmPassword) {
-      setFormErr({});
-      const data = await dispatch(
-        signUp(email.toLowerCase(), username, first_name, last_name, password)
-      );
-      if (data) {
-        console.log("🍀 data", data);
-        const flattenedData = {};
-        data.forEach((item) => {
-          const [key, value] = item.split(" : ");
-          flattenedData[key.trim()] = value.trim();
-        });
-        setFormErr(flattenedData);
-      } else {
-        closeModal();
-        history.push("/");
-      }
-      // } else {
-      //   setFormErr({
-      //     confirm: "Confirm Password must be the same as the Password",
-      //   });
-      // }
+    const newFormErr = {}; // Create a new object to store form errors
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      newFormErr.confirm = "Confirm Password must be the same as password";
+    }
+
+    // Check if there are other form errors
+    const data = await dispatch(
+      signUp(email.toLowerCase(), username, first_name, last_name, password)
+    );
+
+    if (data) {
+      console.log("🍀 data", data);
+      const flattenedData = {};
+      data.forEach((item) => {
+        const [key, value] = item.split(" : ");
+        flattenedData[key.trim()] = value.trim();
+      });
+
+      // Merge the confirm password error with other form errors, if any
+      const mergedFormErr = {...flattenedData, ...newFormErr};
+      setFormErr(mergedFormErr);
+    } else {
+      // If there are no data errors, set the confirm password error (if it exists)
+      setFormErr(newFormErr);
+
+      closeModal();
+      history.push("/");
     }
   };
-
-  //   const disabled = password.length < 6 || username.length < 4 ? true : null;
 
   return (
     <div className="sign-wrap">
@@ -127,7 +163,9 @@ function SignupFormModal() {
           />
         </label>
         {!didSubmit && email.length < 4 && email.length > 0 && (
-          <p className="sign-err">Please input a valid email</p>
+          <p className="sign-err">
+            Valid email must be between 4 and 40 characters{" "}
+          </p>
         )}
         {didSubmit && formErr.email && (
           <p className="sign-err">{formErr.email}</p>
@@ -172,8 +210,8 @@ function SignupFormModal() {
             First name must be between 4 and 40 characters
           </p>
         )}
-        {didSubmit && formErr.firstName && (
-          <p className="sign-err">{formErr.firstName}</p>
+        {didSubmit && formErr.first_name && (
+          <p className="sign-err">{formErr.first_name}</p>
         )}
         {/* {first_name.length < 2 && first_name.length > 0 && (
           <p className="sign-err">First name is required</p>
@@ -187,8 +225,8 @@ function SignupFormModal() {
             onChange={(e) => setLastName(e.target.value)}
           />
         </label>
-        {didSubmit && formErr.lastName && (
-          <p className="sign-err">{formErr.lastName}</p>
+        {didSubmit && formErr.last_name && (
+          <p className="sign-err">{formErr.last_name}</p>
         )}
         <label className="sign-label">
           Password
@@ -212,8 +250,8 @@ function SignupFormModal() {
             Password must be between 6 and 50 characters
           </p>
         )}
-        {didSubmit && formErr.passLength && (
-          <p className="sign-err">{formErr.passLength}</p>
+        {didSubmit && formErr.password && (
+          <p className="sign-err">{formErr.password}</p>
         )}
         {didSubmit && formErr.confirm && (
           <p className="sign-err">{formErr.confirm}</p>

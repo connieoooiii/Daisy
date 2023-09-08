@@ -123,7 +123,7 @@ function SignupFormModal() {
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
+            // required
           />
         </label>
         {!didSubmit && email.length < 4 && email.length > 0 && (
@@ -140,7 +140,7 @@ function SignupFormModal() {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
+            // required
           />
         </label>
         {!didSubmit && username.length < 4 && username.length > 0 && (
@@ -164,7 +164,7 @@ function SignupFormModal() {
             type="text"
             value={first_name}
             onChange={(e) => setFirstName(e.target.value)}
-            required
+            // required
           />
         </label>
         {!didSubmit && first_name.length < 4 && first_name.length > 0 && (
@@ -197,7 +197,7 @@ function SignupFormModal() {
             type={visible1 ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
+            // required
           />
           <div onClick={() => setVisible1(!visible1)} className="pwicon1">
             {visible1 ? (
@@ -225,7 +225,7 @@ function SignupFormModal() {
             type={visible2 ? "text" : "password"}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            required
+            // required
           />
           <div onClick={() => setVisible2(!visible2)} className="pwicon1">
             {visible2 ? (

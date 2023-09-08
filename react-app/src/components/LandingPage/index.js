@@ -11,8 +11,11 @@ export default function LandingPage() {
   const user = useSelector((state) => state.session.user);
 
   const handleCleanser = () => {
-    console.log("handlecleanser clicked");
     history.push("/products/cleansers");
+  };
+
+  const handleCream = () => {
+    history.push("/products/moisterizers");
   };
 
   return (
@@ -40,7 +43,7 @@ export default function LandingPage() {
             />
             <div className="name-circle">Cleansers</div>
           </div>
-          <div className="land-div">
+          <div className="land-div" onClick={handleCream}>
             <img
               src="https://cdn.discordapp.com/attachments/1138505164358164483/1141866461455995021/torridencream.png"
               alt="moisterizer"

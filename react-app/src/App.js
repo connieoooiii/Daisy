@@ -16,6 +16,7 @@ import ThankYou from "./components/ThankYou";
 import PageNotFound from "./components/PageNotFound";
 import Search from "./components/Search";
 import Cleansers from "./components/Cleansers";
+import Moisterizers from "./components/Moisterizers";
 
 function App() {
   const dispatch = useDispatch();
@@ -49,6 +50,12 @@ function App() {
           </Route>
           <Route exact path="/products/cleansers">
             <Cleansers />
+          </Route>
+          <Route exact path="/products/moisterizers">
+            <Moisterizers />
+          </Route>
+          <Route exact path="/products/serums">
+            <Moisterizers />
           </Route>
           <Route exact path="/products/:productId">
             <ProductDetails />

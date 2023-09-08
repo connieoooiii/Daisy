@@ -18,6 +18,14 @@ export default function LandingPage() {
     history.push("/products/moisterizers");
   };
 
+  const handleSerum = () => {
+    history.push("/products/serums");
+  };
+
+  const handleSun = () => {
+    history.push("/products/suncare");
+  };
+
   return (
     <div className="larger-div">
       <div className="land-wrap">
@@ -51,7 +59,7 @@ export default function LandingPage() {
             />
             <div className="name-circle">Moisterizers</div>
           </div>
-          <div className="land-div">
+          <div className="land-div" onClick={handleSerum}>
             <img
               src="https://cdn.discordapp.com/attachments/1138505164358164483/1141869141922418829/orangeroundlab.png"
               alt="serum"
@@ -59,7 +67,7 @@ export default function LandingPage() {
             />
             <div className="name-circle">Serums</div>
           </div>
-          <div className="land-div">
+          <div className="land-div" onClick={handleSun}>
             <img
               src="https://cdn.discordapp.com/attachments/1138505164358164483/1141863160928800819/anua-sun.png"
               alt="suncare"

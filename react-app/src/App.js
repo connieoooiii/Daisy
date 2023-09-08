@@ -17,6 +17,8 @@ import PageNotFound from "./components/PageNotFound";
 import Search from "./components/Search";
 import Cleansers from "./components/Cleansers";
 import Moisterizers from "./components/Moisterizers";
+import Serums from "./components/Serums";
+import SunCare from "./components/Suncare";
 
 function App() {
   const dispatch = useDispatch();
@@ -55,7 +57,10 @@ function App() {
             <Moisterizers />
           </Route>
           <Route exact path="/products/serums">
-            <Moisterizers />
+            <Serums />
+          </Route>
+          <Route exact path="/products/suncare">
+            <SunCare />
           </Route>
           <Route exact path="/products/:productId">
             <ProductDetails />

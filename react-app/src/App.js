@@ -19,6 +19,7 @@ import Cleansers from "./components/Cleansers";
 import Moisterizers from "./components/Moisterizers";
 import Serums from "./components/Serums";
 import SunCare from "./components/Suncare";
+import Makeup from "./components/Makeup";
 
 function App() {
   const dispatch = useDispatch();
@@ -61,6 +62,9 @@ function App() {
           </Route>
           <Route exact path="/products/suncare">
             <SunCare />
+          </Route>
+          <Route exact path="/products/makeup">
+            <Makeup />
           </Route>
           <Route exact path="/products/:productId">
             <ProductDetails />

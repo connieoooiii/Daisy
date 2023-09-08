@@ -26,6 +26,10 @@ export default function LandingPage() {
     history.push("/products/suncare");
   };
 
+  const handleMakeup = () => {
+    history.push("/products/makeup");
+  };
+
   return (
     <div className="larger-div">
       <div className="land-wrap">
@@ -75,7 +79,7 @@ export default function LandingPage() {
             />
             <div className="name-circle">Suncare</div>
           </div>
-          <div className="land-div">
+          <div className="land-div" onClick={handleMakeup}>
             <img
               src="https://cdn.discordapp.com/attachments/1138505164358164483/1141863161260146718/romandlip.png"
               alt="makeup"

@@ -151,7 +151,7 @@ export default function ProductDetails() {
         <div className="d-des">{product?.description}</div>
         <div className="des-seller">
           <img
-            src="https://cdn.discordapp.com/attachments/1138505164358164483/1138930197878550679/daisy.png"
+            src="https://cdn.discordapp.com/attachments/1138505164358164483/1138930197878550679/daisy.png?ex=660dba67&is=65fb4567&hm=933cae9d9d3d6b3e62cff1b3a810ceb027c5c0933ed571dc4ca3353cc21fe356&"
             className="sell-img"
           />
           <div className="sell-user">{product?.creator?.username}</div>

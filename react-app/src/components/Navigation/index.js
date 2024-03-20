@@ -35,7 +35,7 @@ function Navigation({isLoaded}) {
           <NavLink exact to="/">
             <img
               className="daisy-logo"
-              src="https://cdn.discordapp.com/attachments/1138505164358164483/1138930197878550679/daisy.png"
+              src="https://cdn.discordapp.com/attachments/1138505164358164483/1138930197878550679/daisy.png?ex=660dba67&is=65fb4567&hm=933cae9d9d3d6b3e62cff1b3a810ceb027c5c0933ed571dc4ca3353cc21fe356&"
             />
           </NavLink>
           <NavLink exact to="/" className="logo">
